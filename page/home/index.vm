@@ -1,0 +1,17 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+
+  #end
+  #block("content")
+  <div class="mui-content">
+
+  </div>
+  #end
+  #block("back_script")
+  <script type="text/javascript">
+    $(function(){
+      
+    });
+  </script>
+  #end
+#end

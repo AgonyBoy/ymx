@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+#html()
+  #head()
+    <meta charset="utf-8">
+    <title>约明星</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="约明星">
+    #require("/components/mui/mui.min.css")
+    #require("/components/jquery/jquery-2.1.0.js")
+    #require("/components/mui/mui.min.js")
+    #block("head_other")#end
+  #end
+  #body()
+    #block("content")#end
+  #end
+  #block("back_script")#end
+#end
