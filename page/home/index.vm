@@ -3,10 +3,15 @@
 
   #end
   #block("content")
-  <div class="mui-content">
-
-  </div>
+    <div class="mui-content">
+122
+    </div>
   #end
+  <!--底部菜单-->
+  #block("footer")#widget("/widget/footer.vm")#end
+  ## #block("footer")#widget("/widget/footerV2.vm")#end
+
+  <!--自定义js-->
   #block("back_script")
   <script type="text/javascript">
     $(function(){

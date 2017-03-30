@@ -1,0 +1,14 @@
+<nav class="mui-bar mui-bar-tab">
+  <a class="mui-tab-item mui-active" href="#">
+    <span class="mui-icon ymx homeb"></span>
+    <span class="mui-tab-label">首页</span>
+  </a>
+  <a class="mui-tab-item" href="#">
+    <span class="mui-icon ymx mx"></span>
+    <span class="mui-tab-label">约星</span>
+  </a>
+  <a class="mui-tab-item" href="#">
+    <span class="mui-icon ymx wd"></span>
+    <span class="mui-tab-label">我的</span>
+  </a>
+</nav>

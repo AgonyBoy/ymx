@@ -1,0 +1,5 @@
+<nav class="mui-bar mui-bar-tab">
+  <a class="mui-tab-item ymx homea" href="#"></a>
+  <a class="mui-tab-item ymx photo" href="#"></a>
+  <a class="mui-tab-item ymx wd" href="#"></a>
+</nav>

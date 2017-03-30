@@ -15,21 +15,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.fangzi:before { content: "\e602"; }
+.homeb:before { content: "\e602"; }
 
 .wo:before { content: "\e607"; }
 
-.wode:before { content: "\e61b"; }
+.wd:before { content: "\e61b"; }
 
-.shouye1:before { content: "\e652"; }
+.homec:before { content: "\e652"; }
 
 .wode1:before { content: "\e6ab"; }
 
-.mingxing:before { content: "\e604"; }
+.mx:before { content: "\e604"; }
 
-.shouye2:before { content: "\e70f"; }
+.homea:before { content: "\e70f";}
 
-.xin:before { content: "\e600"; }
+.xin:before { content: "\e600"; font-size:40px;}
 
 .wode2:before { content: "\e601"; }
+.photo:before{content:"\e60c";}
 

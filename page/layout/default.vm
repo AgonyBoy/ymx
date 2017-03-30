@@ -8,11 +8,14 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="约明星">
     #require("/components/mui/mui.min.css")
+    #require("/static/css/ymx-icon.css")
+    #require("/static/css/public.css")
     #require("/components/jquery/jquery-2.1.0.js")
     #require("/components/mui/mui.min.js")
     #block("head_other")#end
   #end
   #body()
+    #block("footer")#end
     #block("content")#end
   #end
   #block("back_script")#end
