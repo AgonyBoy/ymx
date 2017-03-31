@@ -1,6 +1,7 @@
 #extends("/page/layout/default.vm")
   #block("head_other")
     #require("/components/progressbar/progressbar.js")
+    #require("/components/masonry/masonry.pkgd.js")
   <style>
     div.ymx-list{
       width:100%;
@@ -32,7 +33,7 @@
       display:block;
       float:left;
       margin-left:-30px;
-      border-radius:20px;
+      border-radius:50%;
       overflow:hidden;
     }
     div.star-info > span.thumb-img{width:100%;height:auto;display:block;padding:5px 0;float:left;}
@@ -69,16 +70,18 @@
     p.item-row{
       font-size:13px;
     }
+    ul#layout{float:left;}
   </style>
   #end
   #block("header")#end
   #block("content")
     <div class="mui-content">
       <!-- 引用轮播图小组件：参数banners  -->
-      ##widget("/widget/slider-banner.vm" "var:banners=$!pictures")
+      
+      #widget("/widget/slider-banner.vm" "var:banners=$!pictures")
       <!-- 约星列表 -->
       <div class="ymx-list">
-        <ul>
+        <ul id="container">
           <li class="star-item">
             <div class="star-info">
               <span class="send-user">
@@ -167,6 +170,12 @@
         var _progress = $(this).find("label").attr("progress");
         loadProgressbar(_id,_progress);
       });
+
+      /*初始化瀑布流布局对象*/
+      var _grid = $("#container").masonry({itemSelector:".star-item"});
+
+      scrollEvent();
+
     });
 
     /**
@@ -187,7 +196,7 @@
               if (value === 0) {
                 circle.setText('');
               } else {
-                circle.setText(" "+value+"%");
+                circle.setText(value+"%");
               }
             }
       });

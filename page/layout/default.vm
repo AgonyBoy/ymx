@@ -12,6 +12,7 @@
     #require("/static/css/public.css")
     #require("/components/jquery/jquery-2.1.0.js")
     #require("/components/mui/mui.min.js")
+    #require("/static/js/util.js")
     #block("head_other")#end
   #end
   #body()
