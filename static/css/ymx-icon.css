@@ -33,4 +33,6 @@
 
 .wode2:before { content: "\e601"; }
 .photo:before{content:"\e60c";}
+.guanz:before{content:"\e622";color:red;}
+.time:before{content:"\e63e";color:#247FF6;}
 

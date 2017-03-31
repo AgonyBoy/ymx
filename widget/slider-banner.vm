@@ -1,0 +1,34 @@
+#if($!banners.size()>0)
+<div id="slider" class="mui-slider">
+  <div class="mui-slider-group mui-slider-loop">
+    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+    #set($lg = $!banners.size() - 1)
+    <div class="mui-slider-item mui-slider-item-duplicate">
+      <a href="$!banners[$lg].loadUrl">
+        <img src="$!banners[$lg].imgUrl">
+        <p class="mui-slider-title">$!banners[$lg].title</p>
+      </a>
+    </div>
+    #foreach($item in $!banners)
+    <div class="mui-slider-item">
+      <a href="$!item.loadUrl">
+        <img src="$!item.imgUrl">
+        <p class="mui-slider-title">$!item.title</p>
+      </a>
+    </div>
+    #end
+    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+    <div class="mui-slider-item mui-slider-item-duplicate">
+      <a href="$!banners[0].loadUrl">
+        <img src="$!banners[0].imgUrl">
+        <p class="mui-slider-title">$!banners[0].title</p>
+      </a>
+    </div>
+  </div>
+  <div class="mui-slider-indicator mui-text-right">
+    #foreach($index in $!banners)
+      <div class="mui-indicator #if($!{velocityCount}==1)mui-active #end"></div>
+    #end
+  </div>
+</div>
+#end

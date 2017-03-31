@@ -1,0 +1,23 @@
+{
+  "pictures":[{
+     "id":1,
+     "title":"相约韩国明星5S即将直播...",
+     "imgUrl":"/assets/img/banner1.jpg",
+     "loadUrl":null
+  },{
+     "id":1,
+     "title":"约星即将开始",
+     "imgUrl":"/assets/img/banner2.jpg",
+     "loadUrl":null
+  },{
+     "id":1,
+     "title":"约星即将开始",
+     "imgUrl":"/assets/img/banner3.jpg",
+     "loadUrl":null
+  },{
+     "id":1,
+     "title":"约星即将开始",
+     "imgUrl":"/assets/img/banner4.jpg",
+     "loadUrl":null
+  }]
+}

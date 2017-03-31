@@ -15,6 +15,7 @@
     #block("head_other")#end
   #end
   #body()
+    #block("header")#end
     #block("footer")#end
     #block("content")#end
   #end

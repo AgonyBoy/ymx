@@ -1,22 +1,199 @@
 #extends("/page/layout/default.vm")
   #block("head_other")
-
+    #require("/components/progressbar/progressbar.js")
+  <style>
+    div.ymx-list{
+      width:100%;
+      float:left;
+      padding:2px;
+    }
+    li.star-item{
+      width:50%;
+      padding:2px;
+      float:left;
+    }
+    div.star-info{
+      width:100%;
+      float:left;
+      padding:5px;
+      background-color:#FFF;
+    }
+    div.star-info > span.send-user{
+      width:100%;
+      padding-left:30px;
+      float:left;
+      text-indent:5px;
+      line-height:30px;
+      display:block;
+    }
+    div.star-info > span.send-user > i{
+      width:30px;
+      height:30px;
+      display:block;
+      float:left;
+      margin-left:-30px;
+      border-radius:20px;
+      overflow:hidden;
+    }
+    div.star-info > span.thumb-img{width:100%;height:auto;display:block;padding:5px 0;float:left;}
+    div.star-info > span.thumb-img > img{width:100%;height:auto;float:left;}
+    div.star-info > span.send-user > i > img{
+      width:100%;
+      height:auto;
+      float:left;
+      border:0;
+    }
+    div.item-info{
+      position:relative;
+      width:100%;
+      float:left;
+    }
+    div.item-info > label{
+      position:absolute !important;
+      width:40px;
+      height:40px;
+      display:block;
+      bottom:0;
+      right:5px;
+    }
+    p.item-tit{
+      color:#000;
+      text-align:left;
+      white-space:nowrap;
+      overflow:hidden;
+      font-size:15px;
+      margin-bottom:10px;
+      text-overflow:ellipsis;
+    }
+    p.item-row:before{padding-right:5px;}
+    p.item-row{
+      font-size:13px;
+    }
+  </style>
   #end
+  #block("header")#end
   #block("content")
     <div class="mui-content">
-122
+      <!-- 引用轮播图小组件：参数banners  -->
+      ##widget("/widget/slider-banner.vm" "var:banners=$!pictures")
+      <!-- 约星列表 -->
+      <div class="ymx-list">
+        <ul>
+          <li class="star-item">
+            <div class="star-info">
+              <span class="send-user">
+                <i><img src="/static/img/photo1.jpg"/></i>
+                <p>放纵的鱼儿</p>
+              </span>
+              <span class="thumb-img"><img src="/static/img/test3.jpg"/></span>
+              <div class="item-info">
+                <p class="item-tit">世界老公宋仲基相约万达广场</p>
+                <p class="item-row ymx guanz">198人跟约</p>
+                <p class="item-row ymx time">2小时前</p>
+                <label id="xin" progress="0.534"></label>
+              </div>
+            </div>
+          </li>
+
+          <li class="star-item">
+            <div class="star-info">
+              <span class="send-user">
+                <i><img src="/static/img/photo1.jpg"/></i>
+                <p>放纵的鱼儿</p>
+              </span>
+              <span class="thumb-img"><img src="/static/img/test5.jpg"/></span>
+              <div class="item-info">
+                <p class="item-tit">世界老公宋仲基相约万达广场</p>
+                <p class="item-row ymx guanz">198人跟约</p>
+                <p class="item-row ymx time">5小时前</p>
+                <label id="xin2" progress="0.7342"></label>
+              </div>
+            </div>
+          </li>
+
+          <li class="star-item">
+            <div class="star-info">
+              <span class="send-user">
+                <i><img src="/static/img/photo1.jpg"/></i>
+                <p>放纵的鱼儿</p>
+              </span>
+              <span class="thumb-img"><img src="/static/img/test4.jpg"/></span>
+              <div class="item-info">
+                <p class="item-tit">世界老公宋仲基相约万达广场</p>
+                <p class="item-row ymx guanz">198人跟约</p>
+                <p class="item-row ymx time">2017-3-31</p>
+                <label id="xin3" progress="0.932442"></label>
+              </div>
+            </div>
+          </li>
+
+          <li class="star-item">
+            <div class="star-info">
+              <span class="send-user">
+                <i><img src="/static/img/photo1.jpg"/></i>
+                <p>放纵的鱼儿</p>
+              </span>
+              <span class="thumb-img"><img src="/static/img/test1.jpg"/></span>
+              <div class="item-info">
+                <p class="item-tit">世界老公宋仲基相约万达广场</p>
+                <p class="item-row ymx guanz">198人跟约</p>
+                <p class="item-row ymx time">2017-4-1</p>
+                <label id="xin4" progress="0.332442"></label>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
     </div>
   #end
+
   <!--底部菜单-->
   #block("footer")#widget("/widget/footer.vm")#end
   ## #block("footer")#widget("/widget/footerV2.vm")#end
 
-  <!--自定义js-->
+  <!--当前页面js-->
   #block("back_script")
   <script type="text/javascript">
     $(function(){
-      
+
+      /*设置自动滚动图片*/
+      var slider = mui("#slider");
+          slider.slider({interval: 5000});
+
+      /*加载指定项目进度条*/
+      $("li.star-item").each(function(){
+        var _id = "#"+$(this).find("label").attr("id");
+        var _progress = $(this).find("label").attr("progress");
+        loadProgressbar(_id,_progress);
+      });
     });
+
+    /**
+     * 生成进度条
+     */
+    function loadProgressbar(id,progress){
+      //var _color ="#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6); //随机颜色
+      var bar = new ProgressBar.Circle(id, { //创建进度条
+        strokeWidth: 5,
+        easing: 'easeInOut',
+        duration: 1400,
+        color: "#da251d",
+        trailColor: '#dfdfdf',
+        trailWidth: 2,
+        svgStyle: null,
+        step: function(state, circle) {
+              var value = Math.round(circle.value() * 100);
+              if (value === 0) {
+                circle.setText('');
+              } else {
+                circle.setText(" "+value+"%");
+              }
+            }
+      });
+      bar.text.style.fontSize = '0.5rem';
+      bar.animate(progress);  // 加载进度条动画
+    }
   </script>
   #end
 #end
