@@ -10,7 +10,7 @@
     }
     li.star-item{
       width:50%;
-      padding:2px;
+      padding:3px;
       float:left;
     }
     div.star-info{
@@ -81,72 +81,7 @@
       #widget("/widget/slider-banner.vm" "var:banners=$!pictures")
       <!-- 约星列表 -->
       <div class="ymx-list">
-        <ul id="container">
-          <li class="star-item">
-            <div class="star-info">
-              <span class="send-user">
-                <i><img src="/static/img/photo1.jpg"/></i>
-                <p>放纵的鱼儿</p>
-              </span>
-              <span class="thumb-img"><img src="/static/img/test3.jpg"/></span>
-              <div class="item-info">
-                <p class="item-tit">世界老公宋仲基相约万达广场</p>
-                <p class="item-row ymx guanz">198人跟约</p>
-                <p class="item-row ymx time">2小时前</p>
-                <label id="xin" progress="0.534"></label>
-              </div>
-            </div>
-          </li>
-
-          <li class="star-item">
-            <div class="star-info">
-              <span class="send-user">
-                <i><img src="/static/img/photo1.jpg"/></i>
-                <p>放纵的鱼儿</p>
-              </span>
-              <span class="thumb-img"><img src="/static/img/test5.jpg"/></span>
-              <div class="item-info">
-                <p class="item-tit">世界老公宋仲基相约万达广场</p>
-                <p class="item-row ymx guanz">198人跟约</p>
-                <p class="item-row ymx time">5小时前</p>
-                <label id="xin2" progress="0.7342"></label>
-              </div>
-            </div>
-          </li>
-
-          <li class="star-item">
-            <div class="star-info">
-              <span class="send-user">
-                <i><img src="/static/img/photo1.jpg"/></i>
-                <p>放纵的鱼儿</p>
-              </span>
-              <span class="thumb-img"><img src="/static/img/test4.jpg"/></span>
-              <div class="item-info">
-                <p class="item-tit">世界老公宋仲基相约万达广场</p>
-                <p class="item-row ymx guanz">198人跟约</p>
-                <p class="item-row ymx time">2017-3-31</p>
-                <label id="xin3" progress="0.932442"></label>
-              </div>
-            </div>
-          </li>
-
-          <li class="star-item">
-            <div class="star-info">
-              <span class="send-user">
-                <i><img src="/static/img/photo1.jpg"/></i>
-                <p>放纵的鱼儿</p>
-              </span>
-              <span class="thumb-img"><img src="/static/img/test1.jpg"/></span>
-              <div class="item-info">
-                <p class="item-tit">世界老公宋仲基相约万达广场</p>
-                <p class="item-row ymx guanz">198人跟约</p>
-                <p class="item-row ymx time">2017-4-1</p>
-                <label id="xin4" progress="0.332442"></label>
-              </div>
-            </div>
-          </li>
-
-        </ul>
+        <ul id="container"></ul>
       </div>
     </div>
   #end
@@ -157,51 +92,104 @@
 
   <!--当前页面js-->
   #block("back_script")
+  <script type="text/template" id="indexTmpl">
+    <%_.each(list,function(item){%>
+      <li class="star-item">
+        <div class="star-info">
+          <span class="send-user">
+            <i><img src="<%=item.userPhoto%>"/></i>
+            <p><%=item.userName%></p>
+          </span>
+          <span class="thumb-img"><img src="<%=item.thumbImg%>"/></span>
+          <div class="item-info">
+            <p class="item-tit"><%=item.activityTile%></p>
+            <p class="item-row ymx guanz"><%=item.userCount%>人跟约</p>
+            <p class="item-row ymx time"><%=item.sendTime%></p>
+            <label id="ratio<%=item.itemId%>" progress="<%=item.ratio%>"></label>
+          </div>
+        </div>
+      </li>
+    <%});%>
+  </script>
   <script type="text/javascript">
+    var _tmpl = _.template($("#indexTmpl").html());
+    var _grid = $("#container").masonry({itemSelector:".star-item"});
     $(function(){
+            /*设置轮播图自动滚动间隔*/
+            var slider = mui("#slider");
+                slider.slider({interval: 5000});
 
-      /*设置自动滚动图片*/
-      var slider = mui("#slider");
-          slider.slider({interval: 5000});
+            /**
+             * 添加滚动条事件加载数据
+             */
+            scrollEvent({
+              addStatus:"正在加载...",
+              stopStatus:"上拉加载更多",
+              overStatus:"已加载全部",
+              autoLoad:true,
+              callback:function(more){
+                addData(more,1,10);
+              }
+            });
 
-      /*加载指定项目进度条*/
-      $("li.star-item").each(function(){
-        var _id = "#"+$(this).find("label").attr("id");
-        var _progress = $(this).find("label").attr("progress");
-        loadProgressbar(_id,_progress);
-      });
-
-      /*初始化瀑布流布局对象*/
-      var _grid = $("#container").masonry({itemSelector:".star-item"});
-
-      scrollEvent();
-
+            /**
+             * 加载新数据
+             */
+            function addData(more,page,count){
+              mui.ajax('/home/get/item',{
+                data:{
+                  page:page,
+                  count:count
+                },
+                dataType:'json',
+                type:'post',               
+                success:function(data){
+                    var _html =$(_tmpl({list:data.data}));               //获取模板数据
+                    $("#container").append(_html);                    //添加新数据
+                    if(_grid!=undefined){
+                      _grid.masonry('destroy');                       //摧毁瀑布流布局
+                    }
+                    _grid=_grid.masonry({itemSelector:".star-item"}); //重新布局瀑布流
+                    more.loadPoint();                                 //滚动到上次加载位置
+                    more.refreshMore(false);                          //改变底部加载状态
+                    _html.each(function(index,item){
+                      if($(item).attr("class")=="star-item"){
+                        var _dom =$(item).find("label");
+                        var _id ="#"+_dom.attr("id");
+                        var _ratio = _dom.attr("progress");
+                        // _dom.createProgress(_ratio);
+                        addProgress(_id,_ratio);
+                      }
+                    });
+                },
+                error:function(xhr,type,errorThrown){
+                  console.log(type);
+                }
+              });
+            }
     });
 
-    /**
-     * 生成进度条
-     */
-    function loadProgressbar(id,progress){
+    function addProgress(id,ratio){
       //var _color ="#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6); //随机颜色
-      var bar = new ProgressBar.Circle(id, { //创建进度条
-        strokeWidth: 5,
-        easing: 'easeInOut',
-        duration: 1400,
-        color: "#da251d",
-        trailColor: '#dfdfdf',
-        trailWidth: 2,
-        svgStyle: null,
-        step: function(state, circle) {
-              var value = Math.round(circle.value() * 100);
-              if (value === 0) {
-                circle.setText('');
-              } else {
-                circle.setText(value+"%");
-              }
-            }
-      });
-      bar.text.style.fontSize = '0.5rem';
-      bar.animate(progress);  // 加载进度条动画
+          var bar = new ProgressBar.Circle(id, { //创建进度条对象
+            strokeWidth: 5,
+            easing: 'easeInOut',
+            duration: 1400,
+            color: "#da251d",
+            trailColor: '#dfdfdf',
+            trailWidth: 2,
+            svgStyle: null,
+            step: function(state, circle) {
+                  var value = Math.round(circle.value() * 100);
+                  if (value === 0) {
+                    circle.setText('');
+                  } else {
+                    circle.setText(value+"%");
+                  }
+                }
+          });
+          bar.text.style.fontSize = '0.5rem';
+          bar.animate(ratio);  // 加载进度条动画
     }
   </script>
   #end

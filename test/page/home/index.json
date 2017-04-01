@@ -19,5 +19,56 @@
      "title":"约星即将开始",
      "imgUrl":"/assets/img/banner4.jpg",
      "loadUrl":null
+  }],
+  "data":[{
+    "userId":0,
+    "itemId":1001,
+    "userName":"放纵的鱼儿",
+    "userPhoto":"/assets/img/photo1.jpg",
+    "thumbImg":"/assets/img/test1.jpg",
+    "activityTile":"世界老公宋仲基相约万达广场",
+    "userCount":731,
+    "sendTime":"3小时前",
+    "ratio":0.57
+  },{
+    "userId":0,
+    "itemId":1002,
+    "userName":"摆不完的农门阵",
+    "userPhoto":"/assets/img/photo3.jpg",
+    "thumbImg":"/assets/img/test5.jpg",
+    "activityTile":"爱我就要大声说出来",
+    "userCount":731,
+    "sendTime":"3小时前",
+    "ratio":0.9111
+  },{
+    "userId":0,
+    "itemId":1003,
+    "userName":"我有一个假老公",
+    "userPhoto":"/assets/img/photo2.jpg",
+    "thumbImg":"/assets/img/test2.jpg",
+    "activityTile":"喜欢我你就点我吧",
+    "userCount":731,
+    "sendTime":"5小时前",
+    "ratio":0.757
+  },{
+    "userId":0,
+    "itemId":1004,
+    "userName":"天屎的翅膀儿",
+    "userPhoto":"/assets/img/photo3.jpg",
+    "thumbImg":"/assets/img/test3.jpg",
+    "activityTile":"追星就要追到家",
+    "userCount":731,
+    "sendTime":"2017-3-31",
+    "ratio":0.657
+  },{
+    "userId":0,
+    "itemId":1005,
+    "userName":"我跟你闹着玩的",
+    "userPhoto":"/assets/img/photo4.jpg",
+    "thumbImg":"/assets/img/test4.jpg",
+    "activityTile":"这一个史前无例的演唱会",
+    "userCount":731,
+    "sendTime":"2017-3-31",
+    "ratio":0.37
   }]
 }
