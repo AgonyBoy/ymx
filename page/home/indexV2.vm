@@ -1,8 +1,11 @@
 #extends("/page/layout/default.vm")
   #block("head_other")
     #require("/components/progressbar/progressbar.js")
-    #require("/components/masonry/masonry.pkgd.js")
     #require("/static/css/home/index.css")
+  <style>
+    div.star-info > span.thumb-img{height:120px !important;overflow:hidden;}
+    div.star-info > span.thumb-img > img{min-height:120px;}
+  </style>
   #end
   #block("header")#end
   #block("content")
@@ -44,7 +47,6 @@
   </script>
   <script type="text/javascript">
     var _tmpl = _.template($("#indexTmpl").html());
-    var _grid = $("#container").masonry({itemSelector:".star-item"});
     $(function(){
             /*设置轮播图自动滚动间隔*/
             var slider = mui("#slider");
@@ -80,10 +82,6 @@
                     }
                     var _html =$(_tmpl({list:data.data}));               //获取模板数据
                     $("#container").append(_html);                    //添加新数据
-                    if(_grid!=undefined){
-                      _grid.masonry('destroy');                       //摧毁瀑布流布局
-                    }
-                    _grid=_grid.masonry({itemSelector:".star-item"}); //重新布局瀑布流
                     more.loadPoint();                                 //滚动到上次加载位置
                     more.refreshMore(false);                          //改变底部加载状态
 

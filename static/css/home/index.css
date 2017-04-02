@@ -1,0 +1,69 @@
+div.ymx-list{
+      width:100%;
+      float:left;
+      padding:2px;
+    }
+    li.star-item{
+      width:50%;
+      padding:3px;
+      float:left;
+    }
+    div.star-info{
+      width:100%;
+      float:left;
+      padding:5px;
+      background-color:#FFF;
+    }
+    div.star-info > span.send-user{
+      width:100%;
+      padding-left:30px;
+      float:left;
+      text-indent:5px;
+      line-height:30px;
+      display:block;
+    }
+    div.star-info > span.send-user > i{
+      width:30px;
+      height:30px;
+      display:block;
+      float:left;
+      margin-left:-30px;
+      border-radius:50%;
+      overflow:hidden;
+    }
+    div.star-info > span.thumb-img{width:100%;height:auto;display:block;padding:5px 0;float:left;}
+    div.star-info > span.thumb-img >a{float:left;display:block;}
+    div.star-info > span.thumb-img >a > img{width:100%;height:auto;float:left;}
+    div.star-info > span.send-user > i > img{
+      width:100%;
+      height:auto;
+      float:left;
+      border:0;
+    }
+    div.item-info{
+      position:relative;
+      width:100%;
+      float:left;
+    }
+    div.item-info > label{
+      position:absolute !important;
+      width:40px;
+      height:40px;
+      display:block;
+      bottom:0;
+      right:5px;
+    }
+    p.item-tit{
+      color:#000;
+      text-align:left;
+      white-space:nowrap;
+      overflow:hidden;
+      font-size:15px;
+      margin-bottom:10px;
+      text-overflow:ellipsis;
+    }
+    p.item-row:before{padding-right:5px;}
+    p.item-row{
+      font-size:13px;
+    }
+    ul#layout{float:left;}
