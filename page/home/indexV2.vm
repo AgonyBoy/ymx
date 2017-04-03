@@ -4,10 +4,9 @@
     #require("/static/css/home/index.css")
   <style>
     div.star-info > span.thumb-img{height:120px !important;overflow:hidden;}
-    div.star-info > span.thumb-img > img{min-height:120px;}
+    div.star-info > span.thumb-img > a > img{min-height:120px;}
   </style>
   #end
-  #block("header")#end
   #block("content")
     <div class="mui-content">
       <!-- 引用轮播图小组件：参数banners  -->
@@ -21,8 +20,8 @@
   #end
 
   <!--底部菜单-->
-  #block("footer")#widget("/widget/footer.vm")#end
-  ## #block("footer")#widget("/widget/footerV2.vm")#end
+  ##block("footer")#widget("/widget/footer.vm")#end
+  # #block("footer")#widget("/widget/footerV2.vm")#end
 
   <!--当前页面js-->
   #block("back_script")

@@ -13,6 +13,8 @@ html,body{
 }
 ul,li,dl,dd,ol{list-style-type: none;padding:0;margin:0;}
 p{margin:0;}
+input:focus,textarea:focus{border-color: #fb5d20 !important;}
+.mui-toast-container{white-space: nowrap;}
 /**
  * 底部菜单样式
  */
@@ -21,6 +23,14 @@ p{margin:0;}
 nav >a:before{font-size: 32px;line-height: 50px;}
 
 /*页面内容公共样式*/
+.mui-bar-transparent{
+  background:rgba(255,255,255,0);
+  box-shadow:0 0 1px rgba(0,0,0.85);
+  -webkit-box-shadow:0 0 1px rgba(0,0,0,0.85);
+  -moz-box-shadow:0 0 1px rgba(0,0,0,0.85);
+  -o-box-shadow:0 0 1px rgba(0,0,0,0.85);
+}
+header + div.mui-content{padding-top:44px;}
 div.mui-content{
   width:100%;
   min-height:100%;
@@ -32,7 +42,18 @@ div.mui-content{
 /*滚动图片导航点*/
 .mui-slider-indicator{bottom:5px;}
 .mui-slider-indicator .mui-indicator{width:10px;height:10px;box-shadow: none;background:transparent;border:2px solid #606060;}
+/*
+ *公共按钮样式
+ */
 
+button{
+  border:0;
+  width:100%;
+  padding:10px;
+  font-size:15px;
+  color:#FFF;
+}
+.red{background:#DA251D;}
 /*底部加载更多样式*/
 p.ymx-more{
   width:100%;
@@ -50,4 +71,14 @@ p.ymx-more{
   margin:0;
   background:url("data:image/svg+xml;base64,PCEtLSBCeSBTYW0gSGVyYmVydCAoQHNoZXJiKSwgZm9yIGV2ZXJ5b25lLiBNb3JlIEAgaHR0cDovL2dvby5nbC83QUp6YkwgLS0+Cjxzdmcgd2lkdGg9IjEyMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDEyMCAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsPSIjODA4MDgwIj4KICAgIDxjaXJjbGUgY3g9IjE1IiBjeT0iMTUiIHI9IjE1Ij4KICAgICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJyIiBmcm9tPSIxNSIgdG89IjE1IgogICAgICAgICAgICAgICAgIGJlZ2luPSIwcyIgZHVyPSIwLjhzIgogICAgICAgICAgICAgICAgIHZhbHVlcz0iMTU7OTsxNSIgY2FsY01vZGU9ImxpbmVhciIKICAgICAgICAgICAgICAgICByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgLz4KICAgICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJmaWxsLW9wYWNpdHkiIGZyb209IjEiIHRvPSIxIgogICAgICAgICAgICAgICAgIGJlZ2luPSIwcyIgZHVyPSIwLjhzIgogICAgICAgICAgICAgICAgIHZhbHVlcz0iMTsuNTsxIiBjYWxjTW9kZT0ibGluZWFyIgogICAgICAgICAgICAgICAgIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiAvPgogICAgPC9jaXJjbGU+CiAgICA8Y2lyY2xlIGN4PSI2MCIgY3k9IjE1IiByPSI5IiBmaWxsLW9wYWNpdHk9IjAuMyI+CiAgICAgICAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgZnJvbT0iOSIgdG89IjkiCiAgICAgICAgICAgICAgICAgYmVnaW49IjBzIiBkdXI9IjAuOHMiCiAgICAgICAgICAgICAgICAgdmFsdWVzPSI5OzE1OzkiIGNhbGNNb2RlPSJsaW5lYXIiCiAgICAgICAgICAgICAgICAgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiIC8+CiAgICAgICAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iZmlsbC1vcGFjaXR5IiBmcm9tPSIwLjUiIHRvPSIwLjUiCiAgICAgICAgICAgICAgICAgYmVnaW49IjBzIiBkdXI9IjAuOHMiCiAgICAgICAgICAgICAgICAgdmFsdWVzPSIuNTsxOy41IiBjYWxjTW9kZT0ibGluZWFyIgogICAgICAgICAgICAgICAgIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiAvPgogICAgPC9jaXJjbGU+CiAgICA8Y2lyY2xlIGN4PSIxMDUiIGN5PSIxNSIgcj0iMTUiPgogICAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIGZyb209IjE1IiB0bz0iMTUiCiAgICAgICAgICAgICAgICAgYmVnaW49IjBzIiBkdXI9IjAuOHMiCiAgICAgICAgICAgICAgICAgdmFsdWVzPSIxNTs5OzE1IiBjYWxjTW9kZT0ibGluZWFyIgogICAgICAgICAgICAgICAgIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiAvPgogICAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9ImZpbGwtb3BhY2l0eSIgZnJvbT0iMSIgdG89IjEiCiAgICAgICAgICAgICAgICAgYmVnaW49IjBzIiBkdXI9IjAuOHMiCiAgICAgICAgICAgICAgICAgdmFsdWVzPSIxOy41OzEiIGNhbGNNb2RlPSJsaW5lYXIiCiAgICAgICAgICAgICAgICAgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiIC8+CiAgICA8L2NpcmNsZT4KPC9zdmc+Cg==") no-repeat scroll 49% 50%/30px 15px;
   display:inline-block;
+}
+
+/*通用标题样式*/
+span.text-tit:before{content:"";width:4px;height:16px;background:#909090;float:left;margin-top:1px;margin-right:3px;display:inline-block;}
+span.text-tit{
+  width:100%;
+  display:block;
+  float:left;
+  padding:10px;
+  border-bottom:1px solid #eee;
 }
