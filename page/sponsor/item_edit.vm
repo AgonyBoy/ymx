@@ -1,6 +1,7 @@
 #extends("/page/layout/default.vm")
   #block("head_other")
   #require("/components/cropit/jquery.cropit.js")
+  #require("/components/hammer/hammer.js")
   <style>
     div.mui-content{
       background:#FFF;
@@ -31,8 +32,8 @@
       height:60%;
       padding:5px;
     }
-    div.left-img{left:0;padding-right:2px;}
-    div.right-img{right:0;padding-left:2px;}
+    div.left-img{left:0;padding-right:1px;padding-top:2px;}
+    div.right-img{right:0;padding-left:1px;padding-top:2px;}
     div.show-img{
       width:100%;
       height:100%;
@@ -85,13 +86,16 @@
     <!--图片拼接和裁剪区-->
     <div class="edit-area">
       <div class="cut-area">
-        <div class="top-img">
+        <div class="top-img" id="topImg">
+          <input type="file" style="display:none;"/>
+          <div id="test" class="show-img"></div>
+        </div>
+        <div class="left-img" id="leftImg">
+          <input type="file" style="display:none;"/>
           <div class="show-img"></div>
         </div>
-        <div class="left-img">
-          <div class="show-img"></div>
-        </div>
-        <div class="right-img">
+        <div class="right-img" id="rightImg">
+          <input type="file" style="display:none;"/>
           <div class="show-img"></div>
         </div>
       </div>
@@ -104,7 +108,7 @@
         <ul>
           <li class="item-step">
             <p>想要邀约的明星</p>
-            <input type="text" placeholder="输入你邀约的明星全名"/>
+            <input type="text" id="starName" placeholder="输入你邀约的明星全名"/>
           </li>
           <li class="item-step">
             <p>设置最低跟约人数</p>
@@ -133,6 +137,11 @@
   #block("back_script")
   <script type="text/javascript">
 
+  var _topImg =$("#topImg");
+  var _leftImg =$("#leftImg");
+  var _rightImg =$("#rightImg");
+  var _imgs =[_topImg,_leftImg,_rightImg];
+
   /**
    * 预览发布按钮响应
    */
@@ -154,6 +163,38 @@
       }
     });
   }
+
+  /**
+   * 初始化对象
+   */
+  $(function(){
+
+    //初始化图片裁剪操作
+    for(var i=0;i<_imgs.length;i++){
+
+      $(_imgs[i]).find("div.show-img").click(function(){
+        $(this).prev().click();
+      });
+      _imgs[i].cropit({
+        $preview:_imgs[i].find(".show-img"),
+        $fileInput:_imgs[i].find("input[type='file']"),
+        onImageLoaded:function(){
+
+          // var stage =_imgs[i].find("img")[0];
+          // var mc = new Hammer.Manager(stage);
+          // var pinch = new Hammer.Pinch();
+          //     mc.add(pinch);
+          //     mc.on('pinchmove', function(e) {
+          //         var _get_zoom =_imgs[i].cropit("zoom");
+          //         _imgs[i].cropit("zoom",e.scale);
+          //     });
+              
+        }
+      });    
+    }
+
+  });
+
   </script>
   #end
 #end
