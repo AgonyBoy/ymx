@@ -12,6 +12,7 @@
         padding:20px 10px;
         border-bottom:1px solid #ab5f32;
         text-align:center;
+        float:left;
         background:#f3662e;
       }
       div.message > p{color:#fff;}
@@ -71,7 +72,7 @@
   #end
 
   <!--底部菜单-->
-  #block("footer")#widget("/widget/footer.vm")#end
+  #block("footer")#widget("/widget/footerV2.vm")#end
 
   #block("back_script")
 
@@ -84,7 +85,7 @@
             <i><img src="<%=item.userPhoto%>"/></i>
             <p><%=item.userName%></p>
           </span>
-          <span class="thumb-img"><a open-type="common" href='<%=item.infoUrl%>'><img src="<%=item.thumbImg%>"/></a><%if(item.status==1){%><span class="tag">进行中</span><%}else{%><span class="tag hui">已结束</span><%}%></span>
+          <span class="thumb-img"><a open-type="common" href='<%=item.infoUrl%>'><img src="<%=item.thumbImg%>"/></a><%if(item.status==1){%><span class="tag red">进行中</span><%}else{%><span class="tag hui">已结束</span><%}%></span>
           <div class="item-info">
             <p class="item-tit"><%=item.activityTile%></p>
             <p class="item-row ymx guanz"><%=item.userCount%>人跟约</p>

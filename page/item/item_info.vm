@@ -11,16 +11,12 @@
     <div class="sponsor">
       <span class="thumb"><img src="/static/img/photo3.jpg"/></span>
       <p class="send-user">会流泪的鱼发起，邀约明星<i>汪峰</i></p>
-      <p class="start-service">跟约满10000人,启动经纪人服务程序。</p>
+      <p class="start-service">已跟约9876人</p>
     </div>
     <div class="more-data">
       <ul>
-        <li class="more-row more">
-          <span class="row-tit">经纪人/服务机构</span>
-          <p class="ymx renz">风客演艺服务团队</p>
-        </li>
         <li class="more-row">
-          <span class="row-tit">已跟约9876人<i class="progress">79%</i></span>
+          <span class="row-tit">共有12个发起人在约<i class="progress">1221</i></span>
           <div class="user-photo more">
             <div>
             <label><img src="/static/img/photo4.jpg"/></label>
@@ -36,10 +32,35 @@
           </div>
         </li>
         <li class="more-row more">
-          <span class="row-tit">直播间未开启</span>
+          <span class="row-tit">经纪人/服务机构</span>
+          <p class="ymx renz">风客演艺服务团队</p>
+        </li>
+        <li class="more-row unborder">
+          <span class="row-tit">项目进度</span>
+        </li>
+        <li class="more-row unborder">
+                                          <!--.new 类表示有跟进状态消息-->
+          <p class="ymx more">经纪服务机构<i class="status new">已跟进</i></p>
+        </li>
+        <li class="more-row unborder">
+          <p class="ymx more">明星或授权代理人回复<i class="status">待回复</i></p>
+        </li>
+        <li class="more-row unborder">
+          <p class="ymx more">开播状态<i class="status">待确定</i></p>
+        </li>
+        <li class="more-row unborder">
+          <p class="ymx more">开播时间<i class="status">待确定</i></p>
+        </li>
+        <li class="more-row more">
+          <span class="row-tit">直播间<span class="tag hui">未开启</span></span>
           <p>跟约人数达到10000人，直播间即刻开启。</p>
         </li>
       </ul>
+    </div>
+
+    <!--跟约操作按钮-->
+    <div class="status-btn">
+      <button class="red">我要跟约</button>
     </div>
   </div>
   #end
