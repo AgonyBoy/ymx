@@ -57,6 +57,9 @@ button{
 .red{background:#DA251D;}
 .hui{background:#7d7d7d;}
 .blue{background:#298FFF;}
+
+/*覆盖mui选中菜单样式*/
+.mui-bar-tab .mui-tab-item.mui-active{color:#da251d;}
 /*底部加载更多样式*/
 p.ymx-more{
   width:100%;

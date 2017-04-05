@@ -4,8 +4,16 @@
     <span class="mui-tab-label">首页</span>
   </a>
   <a class="mui-tab-item" href="#">
+    <span class="mui-icon ymx zhibo"></span>
+    <span class="mui-tab-label">直播</span>
+  </a>
+  <a class="mui-tab-item" href="#">
     <span class="mui-icon ymx mx"></span>
     <span class="mui-tab-label">约星</span>
+  </a>
+  <a class="mui-tab-item" href="#">
+    <span class="mui-icon ymx faxian"></span>
+    <span class="mui-tab-label">发现</span>
   </a>
   <a class="mui-tab-item" href="#">
     <span class="mui-icon ymx wd"></span>

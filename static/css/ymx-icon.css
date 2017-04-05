@@ -35,4 +35,6 @@
 .photo:before{content:"\e60c";}
 .guanz:before{content:"\e622";color:red;}
 .time:before{content:"\e63e";color:#247FF6;}
+.faxian:before{content:"\e608";}
+.zhibo:before{content:"\e647";}
 
