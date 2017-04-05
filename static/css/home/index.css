@@ -31,9 +31,10 @@ div.ymx-list{
       border-radius:50%;
       overflow:hidden;
     }
-    div.star-info > span.thumb-img{width:100%;height:auto;display:block;padding:5px 0;float:left;}
+    div.star-info > span.thumb-img{width:100%;height:auto;display:block;padding:5px 0;float:left;position:relative;}
     div.star-info > span.thumb-img >a{float:left;display:block;}
     div.star-info > span.thumb-img >a > img{width:100%;height:auto;float:left;}
+    div.star-info > span.thumb-img > span.tag{position:absolute;right:3px;bottom:8px;background:#DA251D;font-size:12px;color:#FFF;padding:0 5px;border-radius:3px;}
     div.star-info > span.send-user > i > img{
       width:100%;
       height:auto;

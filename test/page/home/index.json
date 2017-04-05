@@ -23,6 +23,7 @@
   "data":[{
     "userId":0,
     "itemId":1001,
+    "status":1,
     "userName":"放纵的鱼儿",
     "userPhoto":"/assets/img/photo1.jpg",
     "thumbImg":"/assets/img/test1.jpg",
@@ -34,6 +35,7 @@
   },{
     "userId":0,
     "itemId":1002,
+    "status":1,
     "userName":"摆不完的农门阵",
     "userPhoto":"/assets/img/photo3.jpg",
     "thumbImg":"/assets/img/test5.jpg",
@@ -45,6 +47,7 @@
   },{
     "userId":0,
     "itemId":1003,
+    "status":1,
     "userName":"我有一个假老公",
     "userPhoto":"/assets/img/photo2.jpg",
     "thumbImg":"/assets/img/test2.jpg",
@@ -56,6 +59,7 @@
   },{
     "userId":0,
     "itemId":1004,
+    "status":1,
     "userName":"天屎的翅膀儿",
     "userPhoto":"/assets/img/photo3.jpg",
     "thumbImg":"/assets/img/test3.jpg",
@@ -67,6 +71,7 @@
   },{
     "userId":0,
     "itemId":1005,
+    "status":0,
     "userName":"我跟你闹着玩的",
     "userPhoto":"/assets/img/photo4.jpg",
     "thumbImg":"/assets/img/test4.jpg",

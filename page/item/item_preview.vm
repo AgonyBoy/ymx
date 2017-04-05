@@ -1,0 +1,60 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+    #require("/static/css/item/item_info.css")
+  #end
+  #block("header")#widget("/widget/header.vm" "var:title=约星详情")#end
+  #block("content")
+  <div class="mui-content">
+    <div class="showbill">
+      <div class="fill"><canvas id="cvs"></canvas></div>
+    </div>
+    <div class="sponsor">
+      <span class="thumb"><img src="/static/img/photo3.jpg"/></span>
+      <p class="send-user">会流泪的鱼发起，邀约明星<i>汪峰</i></p>
+      <p class="start-service">跟约满10000人,启动经纪人服务程序。</p>
+    </div>
+    <div class="more-data">
+      <ul>
+        <li class="more-row more">
+          <span class="row-tit">经纪人/服务机构</span>
+          <p class="ymx renz">风客演艺服务团队</p>
+        </li>
+        <li class="more-row">
+          <span class="row-tit">已跟约9876人<i class="progress">79%</i></span>
+          <div class="user-photo more">
+            <div>
+            <label><img src="/static/img/photo4.jpg"/></label>
+            <label><img src="/static/img/photo1.jpg"/></label>
+            <label><img src=""/></label>
+            <label><img src="/static/img/photo3.jpg"/></label>
+            <label><img src=""/></label>
+            <label><img src="/static/img/photo3.jpg"/></label>
+            <label><img src="/static/img/photo1.jpg"/></label>
+            <label><img src="/static/img/photo3.jpg"/></label>
+            <label><img src="/static/img/photo1.jpg"/></label>
+            </div>
+          </div>
+        </li>
+        <li class="more-row more">
+          <span class="row-tit">直播间未开启</span>
+          <p>跟约人数达到10000人，直播间即刻开启。</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="status-btn">
+      <button class="blue">立即发布</button>
+      <button class="hui">修改</button>
+    </div>
+  </div>
+  #end
+  #block("back_script")
+  <script type="text/javascript">
+
+    $(function(){
+
+    });
+
+  </script>
+  #end
+#end

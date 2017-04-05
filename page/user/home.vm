@@ -1,0 +1,158 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+    #require("/components/progressbar/progressbar.js")
+    #require("/components/masonry/masonry.pkgd.js")
+    #require("/static/css/home/index.css")
+    ## #require("")
+    <style>
+      div.mui-content{background:#F6F6F6;}
+      div.message{
+        width:100%;
+        min-height:100px;
+        padding:20px 10px;
+        border-bottom:1px solid #ab5f32;
+        text-align:center;
+        background:#f3662e;
+      }
+      div.message > p{color:#fff;}
+      span.user-photo{
+        width:50px;
+        height:50px;
+        display:block;
+        border-radius:50%;
+        margin:5px auto;
+        overflow:hidden;
+      }
+      span.user-photo > img{
+        width:100%;
+        float:left;
+      }
+      div.application{
+        width:100%;
+        float:left;
+        background:#FFF;
+      }
+      li.menu:before{font-size:22px;}
+      li.menu{
+        width:50%;
+        float:left;
+        height:45px;
+        font-size:15px;
+        line-height:45px;
+        text-align:center;
+      }
+      .active{color:#DA251D;}
+      div.show-list{
+        width:100%;
+        float:left;
+      }
+      
+    </style>
+  #end
+
+  #block("content")
+  <div class="mui-content">
+    <div class="message">
+      <span class="user-photo"><img src="/static/img/photo3.jpg"/></span>
+      <p>会流泪的鱼儿</p>
+    </div>
+    <div class="application">
+      <ul>
+        <li item-type="0" class="menu ymx cany active">我的参与（3）</li>
+        <li item-type="1" class="menu ymx wode">我的邀约（1）</li>
+      </ul>
+    </div>
+    <div class="show-list">
+      <ul id="container">
+        
+      </ul>
+    </div>
+  </div>
+  #end
+
+  <!--底部菜单-->
+  #block("footer")#widget("/widget/footer.vm")#end
+
+  #block("back_script")
+
+  <!--项目数据模板-->
+  <script type="text/template" id="indexTmpl">
+    <%_.each(list,function(item){%>
+      <li class="star-item">
+        <div class="star-info">
+          <span class="send-user">
+            <i><img src="<%=item.userPhoto%>"/></i>
+            <p><%=item.userName%></p>
+          </span>
+          <span class="thumb-img"><a open-type="common" href='<%=item.infoUrl%>'><img src="<%=item.thumbImg%>"/></a><%if(item.status==1){%><span class="tag">进行中</span><%}else{%><span class="tag hui">已结束</span><%}%></span>
+          <div class="item-info">
+            <p class="item-tit"><%=item.activityTile%></p>
+            <p class="item-row ymx guanz"><%=item.userCount%>人跟约</p>
+            <p class="item-row ymx time"><%=item.sendTime%></p>
+            <label id="<%=item.itemId%>" progress="<%=item.ratio%>"></label>
+          </div>
+        </div>
+      </li>
+    <%});%>
+  </script>
+
+  <script type="text/javascript">
+
+    var _tmpl = _.template($("#indexTmpl").html());   //获取模板对象
+    var _grid = $("#container").masonry({itemSelector:".star-item"});  //瀑布流布局初始化
+    /**
+     * 初始化数据加载
+     */
+    $(function(){
+      addData(0); //加载初始菜单列表数据
+    });
+
+    /**
+     * 切换个人中心应用菜单加载项目数据
+     */
+    $("li.menu").click(function(){
+      $(this).addClass("active").siblings().removeClass("active");
+      var type =$(this).attr("item-type");
+      addData(type);
+    });
+
+    /**
+     * 加载新数据
+     */
+    function addData(type){
+      mui.ajax('/home/get/item',{
+        data:{
+          itemType:type
+        },
+        dataType:'json',
+        type:'post',               
+        success:function(data){
+            for(var i=0;i<data.data.length;i++){
+              data.data[i].itemId=randomStr(4)+data.data[i].itemId;
+            }
+            var _html =$(_tmpl({list:data.data}));               //获取模板数据
+            $("#container").empty().append(_html);                       //添加新数据
+
+            if(_grid!=undefined){
+              _grid.masonry('destroy');                       //摧毁瀑布流布局
+            }
+            _grid=_grid.masonry({itemSelector:".star-item"}); //重新布局瀑布流
+
+            _html.each(function(index,item){
+              if($(item).attr("class")=="star-item"){
+                var _dom =$(item).find("label");
+                var _id =_dom.attr("id");
+                var _ratio = _dom.attr("progress");
+                _dom.createProgress(_ratio);
+              }
+            });
+        },
+        error:function(xhr,type,errorThrown){
+          console.log(type);
+        }
+      });
+    }
+  </script>
+  #end
+#end
+

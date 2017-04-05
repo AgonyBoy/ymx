@@ -1,0 +1,116 @@
+    div.mui-content{position:relative;background:#FFF;padding-bottom:60px;}
+    div.showbill{
+      position:relative;
+      padding:50%;
+    }
+    div.fill{position:absolute;width:100%;height:100%;top:0;left:0;padding:10px;float:left;}
+    div.fill > canvas{
+      float:left;
+      width:100%;
+      height:100%;
+      border:1px solid #eee;
+    }
+
+    div.sponsor{
+      width:100%;
+      float:left;
+      background:#FFF;
+      padding:10px;
+      border-bottom:5px solid #eee;
+      padding-left:55px;
+    }
+    div.sponsor > span.thumb{
+      width:40px;
+      height:40px;
+      float:left;
+      display:block;
+      border:1px solid #eee;
+      margin-left:-45px;
+      border-radius:50%;
+      overflow:hidden;
+    }
+    div.sponsor > span.thumb > img{
+      width:100%;
+      height:auto;
+      float:left;
+    }
+    p.send-user{
+      color:#000;
+      font-size:15px;
+    }
+    p.send-user > i{
+      font-style:normal;
+      background:#da251d;
+      font-size:12px;
+      color:#FFF;
+      padding:3px 5px;
+      margin-left:3px;
+      border-radius:3px;
+    }
+    p.star-name{font-size:13px;}
+    div.more-data{
+      width:100%;
+      float:left;
+      background:#FFF;
+    }
+    li.more-row{
+      position:relative;
+      width:100%;
+      padding:10px 0;
+      border-bottom:3px solid #eee;
+      transition:background 100ms;
+      -webkit-transition:background 100ms;
+      -moz-transition:background 100ms;
+      -o-transition:background 100ms;
+    }
+    li.more-row > p{padding:0 10px;font-size:13px;}
+    li.more-row > p:after{font-size:20px;}
+    li.more-row:active{background:#F6F6F6;}
+    span.row-tit{
+      width:100%;
+      display:block;
+      font-size:15px;
+      padding:0 10px;
+    }
+    div.user-photo{
+      position:relative;
+      width:100%;
+      margin-top:10px;
+    }
+    div.user-photo> div{
+      width:100%;
+      white-space:nowrap;
+      overflow:hidden;
+      padding:0 5px;
+      font-size:0;
+      line-height:1em;
+    }
+
+    div.user-photo > div > label{
+      width:30px;
+      height:30px;
+      display:inline-block;
+      margin-right:6px;
+      border-radius:50%;
+      background:#eee;
+      overflow:hidden;
+    }
+    div.user-photo > div > label >img{
+      float:left;
+      width:100%;
+    }
+    i.progress:before{content:"活动进度";color:gray;margin-right:3px;}
+    i.progress{float:right;font-style:normal;color:red;font-size:13px;}
+
+    /*操作按钮组样式*/
+    div.status-btn{
+      position:fixed;
+      z-index:999;
+      bottom:0;
+      left:0;
+      width:100%;
+      border-top:1px solid #DFDFDF;
+    }
+    div.status-btn > button{border-radius:0;}
+    div.status-btn > button:first-child{width:60%;float:left;}
+    div.status-btn > button:last-child{width:40%;float:left;}

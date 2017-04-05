@@ -2,82 +2,7 @@
   #block("head_other")
   #require("/components/cropit/jquery.cropit.js")
   #require("/components/hammer/hammer.js")
-  <style>
-    div.mui-content{
-      background:#FFF;
-    }
-    div.edit-area{
-      width:100%;
-      float:left;
-    }
-    div.cut-area{
-      padding:50%;
-      float:left;
-      background:#F6F6F6;
-      position:relative;
-    }
-    div.top-img{
-      position:absolute;
-      left:0;
-      top:0;
-      width:100%;
-      height:40%;
-      padding:5px;
-      padding-bottom:0;
-    }
-    div.left-img,div.right-img{
-      position:absolute;
-      width:50%;
-      top:40%;
-      height:60%;
-      padding:5px;
-    }
-    div.left-img{left:0;padding-right:1px;padding-top:2px;}
-    div.right-img{right:0;padding-left:1px;padding-top:2px;}
-    div.show-img{
-      width:100%;
-      height:100%;
-      border:1px dashed #bababa;
-      background:#FFF url("/static/img/addV2.png") no-repeat scroll 50% 50%/40px 40px;
-    }
-    div.item-info{width:100%;padding:5px 0;float:left;counter-reset:number;}
-    li.item-step{
-      width:100%;
-      float:left;
-      padding:10px;
-      border-bottom:1px solid #eee;
-    }
-    li.item-step > p{font-size:15px;color:#000;}
-    li.item-step > input{margin:0;margin-top:5px;font-size:15px;padding:0 10px;}
-    li.item-step > select{border: 1px solid rgba(0,0,0,.2) !important;margin:0;margin-top:5px;}
-    li.item-step:before{
-      content:counter(number);
-      counter-increment:number;
-      width:20px;
-      height:20px;
-      border-radius:50%;
-      background:#298fff;
-      color:#FFF;
-      text-align:center;
-      float:left;
-      font:14px/20px normal;
-      display:block;
-      margin-right:5px;
-    }
-    li.why{width:100%;float:left;border-top:4px solid #eee;padding:10px;}
-    li.why > textarea{
-      padding:5px 10px;
-      font-size:15px;
-      height:120px;
-      margin:0;
-    }
-    div.release-btn{
-      width:100%;
-      float:left;
-      padding:10px;
-      margin-bottom:10px;
-    }
-  </style>
+  #require("/static/css/item/item_edit.css")
   #end
   #block("header")#widget("/widget/header.vm" "var:title=发布邀约")#end
   #block("content")
@@ -156,14 +81,20 @@
   $("#preview").click(function(){
     var bool =checkIsNull($("div.item-info"));
     if(bool){
-      var _starName =$("#starName").val();
-      var _userCount =$("#unserCount").val();
-      var _service =$("#service").find("option:selected").val();
-      var _organization =$("#organization").find("option:selected").val();
-      var _reason =$("#reason").val();
+
+      var _imgTop =_topImg.cropit("imageSrc");                              //裁剪图片一
+      var _imgLeft=_leftImg.cropit("imageSrc");                             //裁剪图片二
+      var _imgRigt=_rightImg.cropit("imageSrc");                            //裁剪图片三
+
+      var _starName =$("#starName").val();                                  //明星姓名
+      var _userCount =$("#unserCount").val();                               //最低达到人数
+      var _service =$("#service").find("option:selected").val();            //开启的服务
+      var _organization =$("#organization").find("option:selected").val();  //服务机构
+      var _reason =$("#reason").val();                                      //理由
 
       var _data ={starName:_starName,userCount:_userCount,service:_service,organization:_organization,reason:_reason};
 
+      console.log(_imgTop);
       // console.log(JSON.stringify(_data));  //测试打印数据
       
       //保存提交
@@ -214,6 +145,8 @@
         $preview:_imgs[i].find(".show-img"),
         $fileInput:_imgs[i].find("input[type='file']"),
         onImageLoaded:function(){
+
+          $(this)[0].$preview.css("border","1px solid #FFF");   //设置去掉显示图片的虚线边框
 
           // var stage =_imgs[i].find("img")[0];
           // var mc = new Hammer.Manager(stage);
