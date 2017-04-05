@@ -112,18 +112,26 @@
           </li>
           <li class="item-step">
             <p>设置最低跟约人数</p>
-            <input type="number" placeholder="输入邀约最低满足人数"/>
+            <input type="number" placeholder="输入邀约最低满足人数" id="unserCount"/>
           </li>
           <li class="item-step">
             <p>满足邀约人数即刻开启服务</p>
-            <select placeholder="请选择开启的服务"><option></option></select>
+            <select placeholder="请选择开启的服务" id="service">
+              #foreach($val in $!service)
+                <option>$val.name</option>
+              #end
+            </select>
           </li>
           <li class="item-step">
             <p>选择服务机构</p>
-            <select placeholder="请选择服务机构"><option></option></select>
+            <select placeholder="请选择服务机构" id="organization">
+              #foreach($val in $!organization)
+                <option>$val.name</option>
+              #end
+            </select>
           </li>
           <li class="why">
-            <textarea placeholder="请填写你发起邀约的理由" maxlength='1000'></textarea>
+            <textarea placeholder="请填写你发起邀约的理由" maxlength='1000' id="reason"></textarea>
           </li>
         </ul>
       </div>
@@ -146,12 +154,37 @@
    * 预览发布按钮响应
    */
   $("#preview").click(function(){
-    checkIsNull($("div.item-info"));
+    var bool =checkIsNull($("div.item-info"));
+    if(bool){
+      var _starName =$("#starName").val();
+      var _userCount =$("#unserCount").val();
+      var _service =$("#service").find("option:selected").val();
+      var _organization =$("#organization").find("option:selected").val();
+      var _reason =$("#reason").val();
+
+      var _data ={starName:_starName,userCount:_userCount,service:_service,organization:_organization,reason:_reason};
+
+      // console.log(JSON.stringify(_data));  //测试打印数据
+      
+      //保存提交
+      // mui.ajax('/item/save',{
+      //   data:_data,
+      //   dataType:'json',
+      //   type:'post',               
+      //   success:function(data){
+      //       //执行相关跳转
+      //   },
+      //   error:function(xhr,type,errorThrown){
+      //     console.log(type);
+      //   }
+      // });
+    }
   });
   /**
    * 非空验证
    */
   function checkIsNull(dom){
+    var status =true;
     dom.find("input,select,textarea").each(function(){
       var _val = $(this).val()!=null?$(this).val():$(this).find("option:seleted").val();
       var _placeholder=$(this).attr("placeholder");
@@ -159,9 +192,11 @@
       if(_val==""||_val==undefined){
         $(this).focus();
         mui.toast(_placeholder);
+        status=false;
         return false;
       }
     });
+    return status;
   }
 
   /**
