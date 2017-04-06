@@ -79,28 +79,22 @@
   <!--项目数据模板-->
   <script type="text/template" id="indexTmpl">
     <%_.each(list,function(item){%>
-      <li class="star-item">
-        <div class="star-info">
-          <span class="send-user">
-            <i><img src="<%=item.userPhoto%>"/></i>
-            <p><%=item.userName%></p>
-          </span>
-          <span class="thumb-img"><a open-type="common" href='<%=item.infoUrl%>'><img src="<%=item.thumbImg%>"/></a><%if(item.status==1){%><span class="tag red">进行中</span><%}else{%><span class="tag hui">已结束</span><%}%></span>
-          <div class="item-info">
-            <p class="item-tit"><%=item.activityTile%></p>
-            <p class="item-row ymx guanz"><%=item.userCount%>人跟约</p>
-            <p class="item-row ymx time"><%=item.sendTime%></p>
-            <label id="<%=item.itemId%>" progress="<%=item.ratio%>"></label>
-          </div>
-        </div>
-      </li>
+          <li class="star-item">
+            <div class="item-info">
+              <span class="show-img"><a open-type="common" href="<%=item.infoUrl%>"><img src="<%=item.thumbImg%>"/></a><%if(item.status==1){%><span class="tag red">进行中</span><%}else{%><span class="tag hui">已结束</span><%}%></span>
+              <div class="other-info">
+                <span class="user-photo"><img src="<%=item.userPhoto%>"/></span>
+                <p class="item-title">约.<%=item.starName%></p>
+                <p class="genyue"><%=item.userCount%></p>
+              </div>
+            </div>
+          </li>
     <%});%>
   </script>
 
   <script type="text/javascript">
 
     var _tmpl = _.template($("#indexTmpl").html());   //获取模板对象
-    var _grid = $("#container").masonry({itemSelector:".star-item"});  //瀑布流布局初始化
     /**
      * 初始化数据加载
      */
@@ -132,21 +126,7 @@
               data.data[i].itemId=randomStr(4)+data.data[i].itemId;
             }
             var _html =$(_tmpl({list:data.data}));               //获取模板数据
-            $("#container").empty().append(_html);                       //添加新数据
-
-            if(_grid!=undefined){
-              _grid.masonry('destroy');                       //摧毁瀑布流布局
-            }
-            _grid=_grid.masonry({itemSelector:".star-item"}); //重新布局瀑布流
-
-            _html.each(function(index,item){
-              if($(item).attr("class")=="star-item"){
-                var _dom =$(item).find("label");
-                var _id =_dom.attr("id");
-                var _ratio = _dom.attr("progress");
-                _dom.createProgress(_ratio);
-              }
-            });
+            $("#container").empty().append(_html);               //添加新数据
         },
         error:function(xhr,type,errorThrown){
           console.log(type);
