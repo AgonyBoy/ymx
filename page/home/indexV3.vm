@@ -64,12 +64,8 @@
                 dataType:'json',
                 type:'post',               
                 success:function(data){
-                    for(var i=0;i<data.data.length;i++){
-                      data.data[i].itemId=randomStr(4)+data.data[i].itemId;
-                    }
                     var _html =$(_tmpl({list:data.data}));            //获取模板数据
                     $("#container").append(_html);                    //添加新数据
-                    more.loadPoint();                                 //滚动到上次加载位置
                     more.refreshMore(false);                          //改变底部加载状态
                 },
                 error:function(xhr,type,errorThrown){

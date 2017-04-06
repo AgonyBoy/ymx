@@ -72,7 +72,7 @@
   #end
 
   <!--底部菜单-->
-  #block("footer")#widget("/widget/footerV2.vm")#end
+  #block("footer")#widget("/widget/footerV3.vm")#end
 
   #block("back_script")
 

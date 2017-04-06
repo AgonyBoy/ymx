@@ -1,0 +1,81 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+    #require("/static/css/item/user_list.css")
+  #end
+  #block("content")
+    <div class="mui-content">
+      <div class="send-user">
+        <span><img src="/static/img/photo3.jpg"/></span>
+        <p class="name">会流泪的鱼儿<span class="tag hui">发起人</span></p>
+        <p class="ymx time">2017-04-06 16:32:33</p>
+      </div>
+      <div class="show-list">
+        <p class="tit"><label><font id="showCount">0</font></label></p>
+        <ul id="container"></ul>
+      </div>
+    </div>
+  #end
+
+  #block("back_script")
+  <!--跟约用户列表数据模板-->
+  <script type="text/template" id="indexTmpl">
+    <%_.each(list,function(item){%>
+      <li class="user-item">
+        <div class="user-info">
+          <span class="photos"><img src="<%=item.photoImg%>"/></span>
+          <span class="name"><%=item.name%></span>
+        </div>
+      </li>
+    <%});%>
+  </script>
+  <script type="text/javascript">
+    var _tmpl = _.template($("#indexTmpl").html());   //获取模板对象
+    var $more = null;
+    var $page = 1;
+    var $count = 10;
+
+    $(function(){
+      /**
+       * 添加滚动条事件加载数据
+       */
+      scrollEvent({
+        addStatus:"正在加载...",
+        stopStatus:"上拉加载更多",
+        overStatus:"已加载全部",
+        autoLoad:true,
+        callback:function(more){
+          $more = more;
+          addData(more,$page,$count);
+        }
+      });
+
+      /**
+       * 加载新数据
+       */
+      function addData(more,id,page,count){
+        mui.ajax('/get/user/list',{
+          data:{
+            userId:id,
+            page:page,
+            count:count
+          },
+          dataType:'json',
+          type:'post',               
+          success:function(resp){
+
+              //此设置需要另设
+              $("#showCount").text(resp.data.length);      //设置显示所有跟约人数
+
+              var _html =$(_tmpl({list:resp.data}));       //获取模板数据
+              $("#container").append(_html);               //添加新数据
+              more.refreshMore(false);                    //改变底部加载状态
+          },
+          error:function(xhr,type,errorThrown){
+            console.log(type);
+          }
+        });
+      }
+    });
+  </script>
+  #end
+#end
