@@ -1,0 +1,96 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+    #require("/static/css/live/live_list.css")
+  #end
+  #block("content")
+    <nav class="mui-bar mui-bar-tab top-bar">
+      <a class="mui-tab-item" href="#" status="0">
+        <font>即将直播</font>
+      </a>
+      <a class="mui-tab-item mui-active" href="#" status="1">
+        <font>正在直播</font>
+      </a>
+      <a class="mui-tab-item" href="#" status="2">
+        <font>我的关注</font>
+      </a>
+    </nav>
+    <div class="mui-content">
+      <div class="show-list">
+        <ul id="container"></ul>
+      </div>
+    </div>
+  #end
+  <!--底部菜单-->
+  #block("footer")#widget("/widget/footerV3.vm")#end
+  #block("back_script")
+  <script type="text/template" id="indexTmpl">
+    <%_.each(list,function(item){%>
+      <li class="live-item">
+        <div class="live-info">
+          <span class="live-thumb"><img src="<%=item.thumbImg%>"/></span>
+          <p class="message"><span class="name"><%=item.starName%></span><span class="ymx time"><%=item.sendTime%></span></p>
+        </div>
+      </li>
+    <%});%>
+  </script>
+  <script type="text/javascript">
+
+    var _tmpl = _.template($("#indexTmpl").html());
+    var $more=null;
+    var $page =1;
+    var $count =10;
+
+    $(function(){
+        /**
+         * 添加滚动条事件加载数据
+         */
+        scrollEvent({
+          addStatus:"正在加载...",
+          stopStatus:"上拉加载更多",
+          overStatus:"已加载全部",
+          autoLoad:true,
+          callback:function(more){
+            $more =more;
+            addData(more,$page,$count);
+          }
+        });
+
+        /**
+         * 直播状态菜单的响应
+         */
+        $("a.mui-tab-item").click(function(){
+            var _status = $(this).attr("status");
+            $("#container").empty();
+            addData($more,_status,$page,$count);
+        });
+
+        /**
+         * 加载新数据
+         */
+        function addData(more,status,page,count){
+          mui.ajax('/home/get/item',{
+            data:{
+              status:status,
+              page:page,
+              count:count
+            },
+            dataType:'json',
+            type:'post',               
+            success:function(resp){
+                for(var i=0;i<resp.data.length;i++){
+                  resp.data[i].itemId=randomStr(4)+resp.data[i].itemId;
+                }
+                var _html =$(_tmpl({list:resp.data}));            //获取模板数据
+                $("#container").append(_html);                    //添加新数据
+                more.refreshMore(false);                          //改变底部加载状态
+                $page++;
+            },
+            error:function(xhr,type,errorThrown){
+              console.log(type);
+            }
+          });
+        }
+    });
+  </script>
+  #end
+#end

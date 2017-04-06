@@ -8,7 +8,7 @@
     <div class="showbill">
       <div class="fill"><canvas id="cvs"></canvas></div>
     </div>
-    <div class="sponsor">
+    <div class="sponsor more">
       <span class="thumb"><img src="/static/img/photo3.jpg"/></span>
       <p class="send-user">会流泪的鱼发起，邀约明星<i>汪峰</i></p>
       <p class="start-service">已跟约9876人</p>

@@ -37,4 +37,8 @@
 .time:before{content:"\e63e";color:#247FF6;}
 .faxian:before{content:"\e608";}
 .zhibo:before{content:"\e647";}
+.close:before{content:"\e660";}
+.add1:before{content:"\e680";}
+.add2:before{content:"\e60d";}
+.add3:before{content:"\e611";}
 
