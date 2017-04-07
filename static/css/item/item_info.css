@@ -1,16 +1,24 @@
     div.mui-content{position:relative;background:#FFF;padding-bottom:60px;}
+    div.picture{
+      width:100%;
+      float:left;
+      padding:10px;
+    }
     div.showbill{
       position:relative;
       padding:50%;
     }
-    div.fill{position:absolute;width:100%;height:100%;top:0;left:0;padding:10px;float:left;}
-    div.fill > canvas{
-      float:left;
+    div.top-img,div.left-img,div.right-img{position:absolute;padding:2px;}
+    div.top-img{top:0;left:0;width:100%;height:40%;}
+    div.left-img{left:0;bottom:0;width:50%;height:60%;}
+    div.right-img{right:0;bottom:0;width:50%;height:60%;}
+    div.show-img{width:100%;height:100%;float:left;background:#eee;overflow:hidden;}
+    div.show-img > img{
       width:100%;
-      height:100%;
-      border:1px solid #eee;
+      height:auto;
+      min-height: 100%;
+      float:left;
     }
-
     div.sponsor{
       position:relative;
       width:100%;

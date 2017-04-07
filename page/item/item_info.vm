@@ -5,12 +5,25 @@
   #block("header")#widget("/widget/header.vm" "var:title=约星详情")#end
   #block("content")
   <div class="mui-content">
-    <div class="showbill">
-      <div class="fill"><canvas id="cvs"></canvas></div>
+
+    <!--图片拼接区-->
+    <div class="picture">
+      <div class="showbill">
+        <div class="top-img">
+          <div class="show-img"><img src="/static/img/top.jpg"/></div>
+        </div>
+        <div class="left-img">
+          <div class="show-img"><img src="/static/img/left.jpg"/></div>
+        </div>
+        <div class="right-img">
+          <div class="show-img"><img src="/static/img/right.jpg"/></div>
+        </div>
+      </div>
     </div>
+
     <div class="sponsor more">
       <span class="thumb"><img src="/static/img/photo3.jpg"/></span>
-      <p class="send-user">会流泪的鱼发起，邀约明星<i>汪峰</i></p>
+      <p class="send-user">会流泪的鱼发起，邀约明星<i>张杰</i></p>
       <p class="start-service">已跟约9876人</p>
     </div>
     <div class="more-data">
