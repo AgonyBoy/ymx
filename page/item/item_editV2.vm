@@ -96,12 +96,17 @@
 
     //当文件被加入队列以后触发
     upload_a.on("fileQueued",function(file){
+        var _file =file;
         //生成缩略图
         upload_a.makeThumb( file, function( error, ret ) {
           if(error){
             throw new Error("不支持缩略图");
           }else{
-            $("#listImg").append("<li class='show-img'><img src='"+ret+"'/></li>");
+            var _dom =$("<li class='show-img'><span><img src='"+ret+"'/></span><button></button></li>");
+                _dom.find("button").click(function(){
+                  _dom.remove();                         //删除节点元素
+                });
+                $("#listImg").append(_dom);              //添加缩略图
           }
         });
     });
@@ -113,6 +118,8 @@
           if(error){
             throw new Error("不支持缩略图");
           }else{
+            $("#topImg").css("border","0");
+            $("#topImg").find("img").remove();
             $("#topImg").append("<img src='"+ret+"'/>");
           }
         });
@@ -125,6 +132,8 @@
           if(error){
             throw new Error("不支持缩略图");
           }else{
+            $("#leftImg").css("border","0");
+            $("#leftImg").find("img").remove();
             $("#leftImg").append("<img src='"+ret+"'/>");
           }
         });
@@ -137,6 +146,8 @@
           if(error){
             throw new Error("不支持缩略图");
           }else{
+            $("#rightImg").css("border","0");
+            $("#rightImg").find("img").remove();
             $("#rightImg").append("<img src='"+ret+"'/>");
           }
         });

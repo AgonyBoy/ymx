@@ -22,6 +22,13 @@
         extensions:'gif,jpg,jpeg,png',
         mimeTypes:'image/gif,image/jpeg,image/jpg,image/png'
       },
+      thumb:{
+        width:1,
+        height:1,
+        allowMagnify:false,
+        crop:false
+      },
+      compress:false,
       auto:option.auto!=undefined&&typeof(option.auto)==="boolean"?option.auto:true, //是否自动上传
       chunked:option.chunked!=undefined&&typeof(option.chunked)==="boolean"?option.chunked:false, //是否开启分片上传
       chunkSize:option.chunkSize!=undefined&&typeof(option.chunkSize)==="number"?option.chunkSize:1048576,                //分片分成1M/次
@@ -38,6 +45,7 @@
       console.log("加入一个队列前");
     });
 
+/**
     //当文件被加入队列以后触发
     $uploader.on("fileQueued",function(file){
         //生成缩略图
@@ -50,6 +58,7 @@
         });
         console.log("加入一个队列后");
     });
+    */
 
     //当一批文件添加进队列以后触发
     $uploader.on("filesQueued",function(files){

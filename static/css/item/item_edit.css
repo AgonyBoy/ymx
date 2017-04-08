@@ -177,14 +177,26 @@
     div.add-img > label :not(img){display:none;}
     div.add-img > button:active{background:#F6F6F6;}
     div.add-img li.show-img{
+      position:relative;
       width:50px;
       height:50px;
       float:left;
-      margin-right:5px;
+      margin-right:15px;
       margin-top:5px;
+    }
+    div.add-img li.show-img > span{
+      width:100%;
+      height:100%;
+      float:left;
+      display:block;
       overflow:hidden;
     }
-    div.add-img li.show-img>img{
+    div.add-img li.show-img > button{position:absolute;width:20px;height:20px;padding:0;margin:0;border:1px solid #DA251D;line-height:0;text-align:center;border-radius:50%;right:-7px;top:-7px;}
+    div.add-img li.show-img > button:before{
+      content:"x";
+      color:#da251d;
+    }
+    div.add-img li.show-img>span>img{
       width:100%;
       min-height:100%;
       float:left;
