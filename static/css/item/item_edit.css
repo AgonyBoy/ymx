@@ -104,7 +104,7 @@
       border:1px dashed #bababa;
       background:#FFF url("/static/img/addV2.png") no-repeat scroll 50% 50%/40px 40px;
     }
-    div.cut-area label.show-img :not(img){display:none;}
+    div.cut-area label.show-img div.webuploader-pick,div.cut-area label.show-img div.webuploader-pick+div{display:none;}
     div.message-info{float:left;width:100%;}
     div.item-info{width:100%;padding:5px 0;float:left;counter-reset:number;}
     li.item-step{
@@ -174,7 +174,7 @@
       float:left;
       min-height:100%;
     }
-    div.add-img > label :not(img){display:none;}
+    div.add-img > label div.webuploader-pick,div.add-img > label div.webuploader-pick+div{display:none;}
     div.add-img > button:active{background:#F6F6F6;}
     div.add-img li.show-img{
       position:relative;

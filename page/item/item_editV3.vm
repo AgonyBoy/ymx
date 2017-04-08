@@ -1,0 +1,287 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+  #require("/components/uploader/webuploader.js")
+  #require("/components/cropper/cropper.js")
+  #require("/static/js/my-upload-plug.js")
+  #require("/components/cropper/cropper.css")
+  #require("/static/css/item/item_edit.css")
+  #end
+  #block("content")
+  <div class="mui-content">
+
+    <!--搜索明星输入框-->
+    <div class="search">
+      <span class="search-input">
+        <input type="text" id="search" placeholder="你想约谁？输入关键字查找选择" status="1"/>
+        <div class="search-info" id="selectInfo" status="0">
+          <div class="select-list">
+            <ul id="searchList"><li><p class="null-data"></p></li></ul>
+          </div>
+        </div>
+      </span>
+      <p><a href="#" open-type="common" id="unsearch">找不到你想约的人？点这里</a></p>
+    </div>
+
+    <!--图片拼接和裁剪区-->
+    <div class="edit-area">
+      <div class="cut-area">
+        <div class="top-img">
+          <label class="show-img" id="topImg"></label>
+        </div>
+        <div class="left-img">
+          <label class="show-img" id="leftImg"></label>
+        </div>
+        <div class="right-img">
+          <label class="show-img" id="rightImg"></label>
+        </div>
+      </div>
+    </div>
+    <!--邀约详情信息填写-->
+    <div class="message-info">
+      <div class="item-info">
+        <div class="liyou">
+          <div class="bianx">
+            <textarea placeholder="请填写你发起邀约的理由" maxlength='1000' id="reason"></textarea>
+
+            <!-- 如果不需要发布图片，可注释掉"div.add-img"-->
+            <div class="add-img">
+              <ul id="listImg">
+                <!-- 预览图列表
+                <li class="show-img"><img src="/static/img/test1.jpg"/></li>
+                -->
+              </ul>
+              <label id="addImg" class="ymx img-icon"></label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="select-jigou">
+          <span>选择服务机构</span>
+          <div><label class="mui-radio mui-left"><input type="radio" id="101" name="radio" checked="checked"/><p>风客演艺服务团队</p></label></div>
+          <div><label class="mui-radio mui-left"><input type="radio" id="102" name="radio"/><p>其他服务团队</p></label></div>
+        </div>
+      </div>
+    </div>
+    <!--预览按钮-->
+    <div class="release-btn">
+      <button class="blue" id="preview">预览发布</button>
+    </div>
+  </div>
+  #end
+  #block("back_script")
+  <script type="text/javascript">
+
+  /**
+   * 初始化设置
+   */
+  $(function(){
+           
+    /**
+    //实例代码
+    var _upload=_uploader({
+      server:"/upload/file",  //上传借口地址
+      button:"#addImg",       //文件域控件对象id或class
+      multiple:true      //是否支持文件多选，默认为单选模式
+      auto:true,          //是否自动上传,默认自动上传
+      chunked:false,      //是否开启分片上传，默认不分片上传
+      chunkedSize:1048576//分片上传大小默认大小：1048576=1024KB=1MB
+    });
+    */
+
+    var upload_a =_uploader({server:"上传借口地址",button:"#addImg",multiple:true});
+    var upload_b =_uploader({server:"上传借口地址",button:"#topImg",multiple:false});
+    var upload_c =_uploader({server:"上传借口地址",button:"#leftImg",multiple:false});
+    var upload_d =_uploader({server:"上传借口地址",button:"#rightImg",multiple:false});
+    
+
+    //当文件被加入队列以后触发
+    upload_a.on("fileQueued",function(file){
+        var _file =file;
+        //生成缩略图
+        upload_a.makeThumb( file, function( error, ret ) {
+          if(error){
+            throw new Error("不支持缩略图");
+          }else{
+            var _dom =$("<li class='show-img'><span><img src='"+ret+"'/></span><button></button></li>");
+                _dom.find("button").click(function(){
+                  _dom.remove();                         //删除节点元素
+                  console.log(upload_a.getFiles()+"");
+                });
+                $("#listImg").append(_dom);              //添加缩略图
+          }
+        });
+        console.log(upload_a.getFiles()+"");
+    });
+
+    upload_b.on("beforeFileQueued",function(file){upload_b.reset();});//文件加入队列前重置队列
+    //当文件被加入队列以后触发
+    upload_b.on("fileQueued",function(file){
+        //生成缩略图
+        upload_b.makeThumb( file, function( error, ret ) {
+          if(error){
+            throw new Error("不支持缩略图");
+          }else{
+            $("#topImg").css("border","0");
+            $("#topImg").find("img,div.cropper-container").remove();
+            var $img =$("<img src='"+ret+"'/>");
+            $("#topImg").append($img);
+            var _width =$("#topImg").outerWidth();
+            var _height=$("#topImg").outerHeight();
+
+             $("#topImg").find("img").cropper({
+              viewMode:3,
+              dragMode:'move',
+              guides:true,              //裁剪网格显示
+              center:true,              //裁剪中心十字
+              autoCropArea:1,
+              cropBoxMovable:false,     //是否可拖动裁剪框
+              cropBoxResizable:false,   //是否可调整裁剪框大小
+              aspectRatio:_width/_height,
+              crop:function(e){
+                console.log(e.width);
+                console.log(e.height);
+                console.log(e.x);
+                console.log(e.y);
+                console.log(e.rotate);
+                console.log(e.scaleX);
+                console.log(e.scaleY);
+              }
+            });
+          }
+        });
+        console.log(upload_b.getFiles()+"");
+    });
+
+    //当文件被加入队列以后触发
+    upload_c.on("fileQueued",function(file){
+        //生成缩略图
+        upload_c.makeThumb( file, function( error, ret ) {
+          if(error){
+            throw new Error("不支持缩略图");
+          }else{
+            $("#leftImg").css("border","0");
+            $("#leftImg").find("img").remove();
+            $("#leftImg").append("<img src='"+ret+"'/>");
+          }
+        });
+    });
+
+    //当文件被加入队列以后触发
+    upload_d.on("fileQueued",function(file){
+        //生成缩略图
+        upload_d.makeThumb( file, function( error, ret ) {
+          if(error){
+            throw new Error("不支持缩略图");
+          }else{
+            $("#rightImg").css("border","0");
+            $("#rightImg").find("img").remove();
+            $("#rightImg").append("<img src='"+ret+"'/>");
+          }
+        });
+    });
+
+  });
+
+  /**
+   * 处理找不到想约的人
+   */
+  $("#unsearch").click(function(){
+    var btnArray = ['确认', '取消'];
+    mui.prompt('', '请输入正确的明星全名', '添加你想约的明星', btnArray, function(e) {
+      var newName =e.value;
+      if (e.index == 0) {
+          if(newName!=""){
+            //执行保存添加明星
+            // mui.ajax('/star/save',{
+            //   data:{starName:newName},
+            //   dataType:'json',
+            //   type:'post',               
+            //   success:function(data){
+            //      $("#search").val(newName);//保存成功后设置添加明星
+            //   },
+            //   error:function(xhr,type,errorThrown){
+            //     console.log(type);
+            //   }
+            // });
+          }else{
+            mui.toast("添加全名不能为空！");
+          }
+      } else {
+          console.log(e.value);
+      }
+    })
+  });
+
+  /**
+   * 预览发布按钮响应
+   */
+  $("#preview").click(function(){
+    var bool =$("#reason").val()!=""?true:false;
+    if(bool){
+
+      var _reason =$("#reason").val();                                      //理由
+      var _id =$("input[type='radio']:checked").attr("id");                 //获取选中服务机构
+
+      var _data ={reason:_reason,serverId:_id};
+
+      // console.log(_imgTop);
+      console.log(JSON.stringify(_data));  //测试打印数据
+      
+      //保存提交
+      // mui.ajax('/item/save',{
+      //   data:_data,
+      //   dataType:'json',
+      //   type:'post',               
+      //   success:function(data){
+      //       //执行相关跳转
+      //   },
+      //   error:function(xhr,type,errorThrown){
+      //     console.log(type);
+      //   }
+      // });
+    }
+  });
+
+  //搜索框输入搜索
+  $("#search").keyup(function(){
+      var _val = $(this).val();
+      searchStar(_val);
+  });
+
+  //根据关键字查找明星
+  function searchStar(name){
+    mui.ajax('/getByName/star',{
+      data:{
+        name:name
+      },
+      dataType:'json',
+      type:'post',               
+      success:function(resp){
+        if(resp.data.length>0){
+          $("#searchList").empty();
+          for(var i=0;i<resp.data.length;i++){
+            $("#searchList").append("<li class='star-name'>"+resp.data[i].name+"</li>");
+          }
+          $("#searchList").find("li.star-name").click(function(){
+            $("#search").val($(this).text());
+          });
+        }
+      },
+      error:function(xhr,type,errorThrown){
+        console.log(type);
+      }
+    });
+  }
+  //控制搜索结果列表的显示或隐藏
+  $("div.search").find("#search,#selectInfo").click(function(){
+    if($(this).attr('status')==0){
+      $("#selectInfo").fadeOut(300);
+    }else{
+      $("#selectInfo").fadeIn(300);
+    }
+  });
+
+  </script>
+  #end
+#end
