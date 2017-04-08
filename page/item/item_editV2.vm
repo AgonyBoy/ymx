@@ -57,8 +57,8 @@
 
         <div class="select-jigou">
           <span>选择服务机构</span>
-          <div><label class="mui-radio mui-left"><input type="radio" name="radio" checked="checked"/><p>风客演艺服务团队</p></label></div>
-          <div><label class="mui-radio mui-left"><input type="radio" name="radio"/><p>其他服务团队</p></label></div>
+          <div><label class="mui-radio mui-left"><input type="radio" id="101" name="radio" checked="checked"/><p>风客演艺服务团队</p></label></div>
+          <div><label class="mui-radio mui-left"><input type="radio" id="102" name="radio"/><p>其他服务团队</p></label></div>
         </div>
       </div>
     </div>
