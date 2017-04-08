@@ -4,9 +4,19 @@
  */
 (function($,_BS){
   window._uploader =function(option){
-    if(typeof(option)!="object"){alert("param error !");}
+    if(typeof(option)!="object"){throw new Error("param error !");return false;}
 
-    var $uploader=_BS.Base.create({
+    /**
+     * 获取自定义参数
+     */
+    var _btn=option.button!=undefined ? option.button : null;
+    var _multiple=typeof(option.multiple)!=undefined && typeof(option.multiple)==="boolean"?option.multiple:false;
+
+    var $uploader=_BS.create({
+      pick:{
+        id:_btn,
+        multiple:_multiple
+      },
       accept:{                          //配置上传图片的文件后缀格式
         title:'图片上传控件',
         extensions:'gif,jpg,jpeg,png',
@@ -22,34 +32,6 @@
       // fileSingleSizeLimit:5242880,      //验证单个文件大小是否超出限制, 超出则不允许加入队列。
       // duplicate:true                   //去重， 根据文件名字、文件大小和最后修改时间来生成hash Key.
     });
-
-    /**
-     * 获取自定义参数
-     */
-    var _pick=null;
-    var _multiple=typeof(option.multiple)!=undefined && typeof(option.multiple)==="boolean"?option.multiple:false;
-    var _bool=typeof(option.eventBtn)!=undefined && typeof(option.eventBtn)==="object"?true:false;
-    var _btn=_bool && typeof(option.eventBtn.groupBtn)==="object"?option.eventBtn.groupBtn:null;
-    var _callback=_bool && typeof(option.eventBtn.callback)==="function"?option.eventBtn.callback:null;
-
-    /**
-     * 根据配置参数获取或创建文件域对象
-     */
-    if(typeof(option.pick)==="string"){
-      _pick = option.pick.indexOf("#")>-1?$(option.pick):$("#"+option.pick);
-      $uploader.addFiles(_pick);
-    }else if(typeof(option.pick)==="object"){
-      _pick = option.pick.get(0);
-      $uploader.addFiles(_pick);
-    }else if(typeof(option.pick)==="undefined"){
-      var _accept =$uploader.option("accept")[0];
-      _pick = _multiple?$("<input name='file' style='display:none' type='file' multiple='multiple' accept='"+_accept.mimeTypes+"'/>"):$("<input type='file' name='file' style='display:none' accept='"+_accept.mimeTypes+"'/>");
-      $("body").append(_pick);
-      $uploader.addFiles(_pick[0]);
-    }
-
-    //单击按钮打开文件选择
-    _btn.click(function(){_pick.click();});
 
     //当文件被加入队列之前触发，此事件的handler返回值为false，则此文件不会被添加进入队列。
     $uploader.on("beforeFileQueued",function(file){

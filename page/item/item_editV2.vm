@@ -1,7 +1,5 @@
 #extends("/page/layout/default.vm")
   #block("head_other")
-  #require("/components/cropit/jquery.cropit.js")
-  #require("/components/hammer/hammer.js")
   #require("/components/uploader/webuploader.js")
   #require("/static/js/my-upload-plug.js")
   #require("/static/css/item/item_edit.css")
@@ -19,23 +17,20 @@
           </div>
         </div>
       </span>
-      <p><a href="#" open-type="common">找不到你想约的人？点这里</a></p>
+      <p><a href="#" open-type="common" id="unsearch">找不到你想约的人？点这里</a></p>
     </div>
 
     <!--图片拼接和裁剪区-->
     <div class="edit-area">
       <div class="cut-area">
-        <div class="top-img" id="topImg">
-          <input type="file" style="display:none;"/>
-          <div id="test" class="show-img"></div>
+        <div class="top-img">
+          <label class="show-img" id="topImg"></label>
         </div>
-        <div class="left-img" id="leftImg">
-          <input type="file" style="display:none;"/>
-          <div class="show-img"></div>
+        <div class="left-img">
+          <label class="show-img" id="leftImg"></label>
         </div>
-        <div class="right-img" id="rightImg">
-          <input type="file" style="display:none;"/>
-          <div class="show-img"></div>
+        <div class="right-img">
+          <label class="show-img" id="rightImg"></label>
         </div>
       </div>
     </div>
@@ -49,11 +44,12 @@
 
             <!-- 如果不需要发布图片，可注释掉"div.add-img"-->
             <div class="add-img">
-              <ul>
+              <ul id="listImg">
+                <!-- 预览图列表
                 <li class="show-img"><img src="/static/img/test1.jpg"/></li>
-                <li class="show-img"><img src="/static/img/test4.jpg"/></li>
+                -->
               </ul>
-              <button id="addImg" class="ymx img-icon"></button>
+              <label id="addImg" class="ymx img-icon"></label>
             </div>
 
           </div>
@@ -75,28 +71,123 @@
   #block("back_script")
   <script type="text/javascript">
 
-  var _topImg =$("#topImg");
-  var _leftImg =$("#leftImg");
-  var _rightImg =$("#rightImg");
-  var _imgs =[_topImg,_leftImg,_rightImg];
+  /**
+   * 初始化设置
+   */
+  $(function(){
+
+    /**
+    //实例代码
+    var _upload=_uploader({
+      server:"/upload/file",  //上传借口地址
+      button:"#addImg",       //文件域控件对象id或class
+      multiple:true      //是否支持文件多选，默认为单选模式
+      auto:true,          //是否自动上传,默认自动上传
+      chunked:false,      //是否开启分片上传，默认不分片上传
+      chunkedSize:1048576//分片上传大小默认大小：1048576=1024KB=1MB
+    });
+    */
+
+    var upload_a =_uploader({server:"上传借口地址",button:"#addImg",multiple:true});
+    var upload_b =_uploader({server:"上传借口地址",button:"#topImg",multiple:false});
+    var upload_c =_uploader({server:"上传借口地址",button:"#leftImg",multiple:false});
+    var upload_d =_uploader({server:"上传借口地址",button:"#rightImg",multiple:false});
+    
+
+    //当文件被加入队列以后触发
+    upload_a.on("fileQueued",function(file){
+        //生成缩略图
+        upload_a.makeThumb( file, function( error, ret ) {
+          if(error){
+            throw new Error("不支持缩略图");
+          }else{
+            $("#listImg").append("<li class='show-img'><img src='"+ret+"'/></li>");
+          }
+        });
+    });
+
+    //当文件被加入队列以后触发
+    upload_b.on("fileQueued",function(file){
+        //生成缩略图
+        upload_b.makeThumb( file, function( error, ret ) {
+          if(error){
+            throw new Error("不支持缩略图");
+          }else{
+            $("#topImg").append("<img src='"+ret+"'/>");
+          }
+        });
+    });
+
+    //当文件被加入队列以后触发
+    upload_c.on("fileQueued",function(file){
+        //生成缩略图
+        upload_c.makeThumb( file, function( error, ret ) {
+          if(error){
+            throw new Error("不支持缩略图");
+          }else{
+            $("#leftImg").append("<img src='"+ret+"'/>");
+          }
+        });
+    });
+
+    //当文件被加入队列以后触发
+    upload_d.on("fileQueued",function(file){
+        //生成缩略图
+        upload_d.makeThumb( file, function( error, ret ) {
+          if(error){
+            throw new Error("不支持缩略图");
+          }else{
+            $("#rightImg").append("<img src='"+ret+"'/>");
+          }
+        });
+    });
+
+  });
+
+  /**
+   * 处理找不到想约的人
+   */
+  $("#unsearch").click(function(){
+    var btnArray = ['确认', '取消'];
+    mui.prompt('', '请输入正确的明星全名', '添加你想约的明星', btnArray, function(e) {
+      var newName =e.value;
+      if (e.index == 0) {
+          if(newName!=""){
+            //执行保存添加明星
+            // mui.ajax('/star/save',{
+            //   data:{starName:newName},
+            //   dataType:'json',
+            //   type:'post',               
+            //   success:function(data){
+            //      $("#search").val(newName);//保存成功后设置添加明星
+            //   },
+            //   error:function(xhr,type,errorThrown){
+            //     console.log(type);
+            //   }
+            // });
+          }else{
+            mui.toast("添加全名不能为空！");
+          }
+      } else {
+          console.log(e.value);
+      }
+    })
+  });
 
   /**
    * 预览发布按钮响应
    */
   $("#preview").click(function(){
-    var bool =checkIsNull($("div.item-info"));
+    var bool =$("#reason").val()!=""?true:false;
     if(bool){
 
-      var _imgTop =_topImg.cropit("imageSrc");                              //裁剪图片一
-      var _imgLeft=_leftImg.cropit("imageSrc");                             //裁剪图片二
-      var _imgRigt=_rightImg.cropit("imageSrc");                            //裁剪图片三
-
       var _reason =$("#reason").val();                                      //理由
+      var _id =$("input[type='radio']:checked").attr("id");                 //获取选中服务机构
 
-      var _data ={reason:_reason};
+      var _data ={reason:_reason,serverId:_id};
 
       // console.log(_imgTop);
-      // console.log(JSON.stringify(_data));  //测试打印数据
+      console.log(JSON.stringify(_data));  //测试打印数据
       
       //保存提交
       // mui.ajax('/item/save',{
@@ -112,25 +203,6 @@
       // });
     }
   });
-
-  /**
-   * 非空验证
-   */
-  function checkIsNull(dom){
-    var status =true;
-    dom.find("input,select,textarea").each(function(){
-      var _val = $(this).val()!=null?$(this).val():$(this).find("option:seleted").val();
-      var _placeholder=$(this).attr("placeholder");
-
-      if(_val==""||_val==undefined){
-        $(this).focus();
-        mui.toast(_placeholder);
-        status=false;
-        return false;
-      }
-    });
-    return status;
-  }
 
   //搜索框输入搜索
   $("#search").keyup(function(){
@@ -169,47 +241,6 @@
     }else{
       $("#selectInfo").fadeIn(300);
     }
-  });
-
-  /**
-   * 初始化设置
-   */
-  $(function(){
-
-    //初始化图片裁剪操作
-    for(var i=0;i<_imgs.length;i++){
-
-      $(_imgs[i]).find("div.show-img").click(function(){
-        $(this).prev().click();
-      });
-      _imgs[i].cropit({
-        $preview:_imgs[i].find(".show-img"),
-        $fileInput:_imgs[i].find("input[type='file']"),
-        onImageLoaded:function(){
-
-          $(this)[0].$preview.css("border","1px solid #FFF");   //设置去掉显示图片的虚线边框
-              
-        }
-      });    
-    }
-
-
-    //上传图片
-    _uploader({
-      // pick:"#file",       //文件域控件，不指定时，会自动创建
-      // multiple:false,      //是否支持文件多选，默认为单选模式
-      auto:true,          //是否自动上传,默认自动上传
-      chunked:false,      //是否开启分片上传，默认不分片上传
-      chunkedSize:1048576,//分片上传大小默认大小：1048576=1024KB=1MB
-      eventBtn:{          //添加图片文件的按钮元素配置
-        groupBtn:$("#addImg"),   //使用jquery选择器，可以是一个或多个
-        callback:function(button,img){     //图片文件被加入后的回调函数
-            //button-当前点击按钮
-            //img-生成的缩略图地址
-        }
-      }
-    });
-
   });
 
   </script>

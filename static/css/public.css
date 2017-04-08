@@ -15,6 +15,7 @@ ul,li,dl,dd,ol{list-style-type: none;padding:0;margin:0;}
 p{margin:0;}
 input:focus,textarea:focus{border-color: #fb5d20 !important;}
 .mui-toast-container{white-space: nowrap;}
+.mui-popup-input input{height:40px;}
 /**
  * 底部菜单样式
  */
