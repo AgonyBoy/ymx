@@ -13,6 +13,7 @@
     var _multiple=typeof(option.multiple)!=undefined && typeof(option.multiple)==="boolean"?option.multiple:false;
 
     var $uploader=_BS.create({
+      server:option.server!=undefined && option.server!=""?option.server:null,
       pick:{
         id:_btn,
         multiple:_multiple
