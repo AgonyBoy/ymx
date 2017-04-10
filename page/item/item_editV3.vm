@@ -1,7 +1,9 @@
 #extends("/page/layout/default.vm")
   #block("head_other")
   #require("/components/uploader/webuploader.js")
+  #require("/components/cropper/cropper.js")
   #require("/static/js/my-upload-plug.js")
+  #require("/components/cropper/cropper.css")
   #require("/static/css/item/item_edit.css")
   #end
   #block("content")
@@ -34,7 +36,6 @@
         </div>
       </div>
     </div>
-
     <!--邀约详情信息填写-->
     <div class="message-info">
       <div class="item-info">
@@ -75,7 +76,7 @@
    * 初始化设置
    */
   $(function(){
-
+           
     /**
     //实例代码
     var _upload=_uploader({
@@ -105,12 +106,15 @@
             var _dom =$("<li class='show-img'><span><img src='"+ret+"'/></span><button></button></li>");
                 _dom.find("button").click(function(){
                   _dom.remove();                         //删除节点元素
+                  console.log(upload_a.getFiles()+"");
                 });
                 $("#listImg").append(_dom);              //添加缩略图
           }
         });
+        console.log(upload_a.getFiles()+"");
     });
 
+    upload_b.on("beforeFileQueued",function(file){upload_b.reset();});//文件加入队列前重置队列
     //当文件被加入队列以后触发
     upload_b.on("fileQueued",function(file){
         //生成缩略图
@@ -119,10 +123,34 @@
             throw new Error("不支持缩略图");
           }else{
             $("#topImg").css("border","0");
-            $("#topImg").find("img").remove();
-            $("#topImg").append("<img src='"+ret+"'/>");
+            $("#topImg").find("img,div.cropper-container").remove();
+            var $img =$("<img src='"+ret+"'/>");
+            $("#topImg").append($img);
+            var _width =$("#topImg").outerWidth();
+            var _height=$("#topImg").outerHeight();
+
+             $("#topImg").find("img").cropper({
+              viewMode:3,
+              dragMode:'move',
+              guides:true,              //裁剪网格显示
+              center:true,              //裁剪中心十字
+              autoCropArea:1,
+              cropBoxMovable:false,     //是否可拖动裁剪框
+              cropBoxResizable:false,   //是否可调整裁剪框大小
+              aspectRatio:_width/_height,
+              crop:function(e){
+                console.log(e.width);
+                console.log(e.height);
+                console.log(e.x);
+                console.log(e.y);
+                console.log(e.rotate);
+                console.log(e.scaleX);
+                console.log(e.scaleY);
+              }
+            });
           }
         });
+        console.log(upload_b.getFiles()+"");
     });
 
     //当文件被加入队列以后触发
