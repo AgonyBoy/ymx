@@ -1,0 +1,27 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+    #require("/static/css/item/organization_message.css")
+  #end
+  #block("content")
+  <div class="mui-content">
+    <div class="show-data">
+      <ul>
+
+        #foreach($item in $!data)
+          <li class="message">
+            <label><font>$item.createTime</font></label>
+            <span class="message-photo"><img src="$item.photo"/></span>
+            <div class="message-info">$item.message</div>
+          </li>
+        #end
+
+      </ul>
+    </div>
+  </div>
+  #end
+  #block("back_script")
+  <script type="text/javascript">
+
+  </script>
+  #end
+#end

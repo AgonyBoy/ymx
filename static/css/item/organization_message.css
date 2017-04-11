@@ -1,0 +1,72 @@
+div.show-data{
+        width:100%;
+        padding:10px;
+        float:left;
+      }
+
+      li.message{
+        position: relative;
+        width:100%;
+        float:left;
+        padding:10px 0;
+        padding-left:50px;
+        padding-top:40px;
+      }
+      li.message > label{
+        position:absolute;
+        top:5px;
+        left:0;
+        width:100%;
+        display: block;
+        text-align: center;
+      }
+      li.message > label > font{
+        margin:auto;
+        padding:4px 6px;
+        border-radius:3px;
+        color:#FFF;
+        font-size: 13px;
+        background-color: #dadada;
+      }
+      li.message > span.message-photo{
+        width:40px;
+        height:40px;
+        display: block;
+        float:left;
+        margin-left:-50px;
+        border-radius:5px;
+        overflow:hidden;
+      }
+      span.message-photo > img{
+        width:100%;
+        float:left;
+        min-height: 100%;
+      }
+      li.message > div.message-info{
+        position:relative;
+        padding:10px;
+        background:#FFF;
+        border:1px solid #DFDFDF;
+        float: left;
+        border-radius: 3px;
+      }
+      li.message > div.message-info:before{
+        content:"";
+        border-top:6px solid transparent;
+        border-right:8px solid #dfdfdf;
+        border-bottom:6px solid transparent;
+        position: absolute;
+        left:-8px;
+        z-index: 1;
+        top:15px;
+      }
+      li.message > div.message-info:after{
+        content:"";
+        border-top:6px solid transparent;
+        border-right:7px solid #FFF;
+        border-bottom:6px solid transparent;
+        position: absolute;
+        left:-7px;
+        z-index: 2;
+        top:15px;
+      }

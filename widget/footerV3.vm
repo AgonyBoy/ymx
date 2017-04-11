@@ -1,20 +1,20 @@
 <nav class="mui-bar mui-bar-tab">
-  <a class="mui-tab-item mui-active" href="#">
+  <a class="mui-tab-item mui-active" open-type="common" href="http://www.baidu.com/">
     <span class="mui-icon ymx homeb"></span>
     <span class="mui-tab-label">首页</span>
   </a>
-  <a class="mui-tab-item" href="#">
+  <a class="mui-tab-item" open-type="common" href="http://www.baidu.com/">
     <span class="mui-icon ymx zhibo"></span>
     <span class="mui-tab-label">直播</span>
   </a>
-  <a class="mui-tab-item" href="#">
+  <a class="mui-tab-item" open-type="common" href="http://www.baidu.com/">
     <span class="ymx add1" id="sendMenu"></span>
   </a>
-  <a class="mui-tab-item" href="#">
+  <a class="mui-tab-item" open-type="common" href="http://www.baidu.com/">
     <span class="mui-icon ymx faxian"></span>
     <span class="mui-tab-label">发现</span>
   </a>
-  <a class="mui-tab-item" href="#">
+  <a class="mui-tab-item" open-type="common" href="http://www.baidu.com/">
     <span class="mui-icon ymx wd"></span>
     <span class="mui-tab-label">我的</span>
   </a>

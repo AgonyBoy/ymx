@@ -1,0 +1,18 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+    ## #require("/static/css/item/item_info.css")
+    <style>
+
+    </style>
+  #end
+  #block("content")
+  <div class="mui-content">
+    
+  </div>
+  #end
+  #block("back_script")
+  <script type="text/javascript">
+
+  </script>
+  #end
+#end
