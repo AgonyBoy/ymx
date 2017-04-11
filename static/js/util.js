@@ -113,4 +113,16 @@
     _following.append(_closebtn,_content,_code);
     $("body").append(_following);
   }
+
+  /**
+   * 约明星分享引导
+   */
+  window.shareYmx = function(url){
+    var $img = url!=undefined && url!="" ?"<img src='"+url+"'/>":"<img src='/assets/img/yin-dao.png'/>";
+    var $popup =$("<div class='ymx-popup'>"+$img+"</div>");
+        $popup.click(function(){
+          $popup.remove();
+        });
+    $("body").append($popup);
+  }
 })(jQuery);

@@ -7,12 +7,14 @@
   #end
   #block("content")
   <div class="mui-content">
-    
+ss
   </div>
   #end
   #block("back_script")
   <script type="text/javascript">
-
+    $(function(){
+       shareYmx();
+    });
   </script>
   #end
 #end
