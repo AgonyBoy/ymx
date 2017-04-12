@@ -17,8 +17,8 @@
       }
       div.message > p{color:#fff;}
       span.user-photo{
-        width:50px;
-        height:50px;
+        width:60px;
+        height:60px;
         display:block;
         border-radius:50%;
         margin:5px auto;
@@ -26,6 +26,7 @@
       }
       span.user-photo > img{
         width:100%;
+        min-height: 100%;
         float:left;
       }
       div.application{

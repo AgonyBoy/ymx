@@ -36,10 +36,12 @@
       border:1px solid #eee;
       margin-left:-45px;
       border-radius:50%;
+      background-color: #eee;
       overflow:hidden;
     }
     div.sponsor > span.thumb > img{
       width:100%;
+      min-height:100%;
       height:auto;
       float:left;
     }
@@ -109,6 +111,7 @@
     }
     div.user-photo > div > label >img{
       float:left;
+      min-height:100%;
       width:100%;
     }
     i.progress:before{content:"总跟约";color:gray;margin-right:3px;}
