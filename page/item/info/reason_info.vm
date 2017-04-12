@@ -1,19 +1,78 @@
 #extends("/page/layout/default.vm")
   #block("head_other")
-    ## #require("/static/css/item/item_info.css")
+    #require("/static/css/item/user_list.css")
+    #require("/components/masonry/masonry.pkgd.js")
     <style>
+      div.mui-content{
+        background:#FFF;
+      }
+      div.show-content{
+        width:100%;
+        float:left;
+      }
 
+      div.show-text{
+        padding:10px;
+        float:left;
+        width:100%;
+      }
+      pre{
+        width:100%;
+        float:left;
+        font-size:15px !important;
+        border-radius:3px;
+        color:#464646;
+        padding:10px 5px;
+        margin:0;
+        white-space:pre-wrap;
+        border:1px dashed #dfdfdf;
+      }
+      div.image{
+        width:100%;
+        padding:10px 5px;
+        float:left;
+      }
+      li.img{
+        width:50%;
+        float:left;
+        padding:5px;
+      }
+      li.img > img{
+        width:100%;
+        float:left;
+      }
+      div.send-user{border-bottom:3px solid #F6F6F6 !important;}
     </style>
   #end
   #block("content")
   <div class="mui-content">
-ss
+    <div class="show-content">
+      <div class="send-user">
+        <span><img src="/static/img/photo3.jpg"/></span>
+        <p class="name">会流泪的鱼儿<span class="tag hui">发起人</span></p>
+        <p class="ymx time">2017-04-06 16:32:33</p>
+      </div>
+      <div class="show-text">
+      <pre>
+        范冰冰，1981年9月16日出生于山东青岛，影视女演员、流行乐歌手。1998年主演《还珠格格》成名，2001年起投身大银幕。2004年-2013年凭借电影《手机》、《心中有鬼》、《苹果》、《观音山》、《二次曝光》先后获得第27届大众电影百花奖最佳女主角、第44届台湾电影金马奖最佳女配角、第4届欧亚国际电影节最佳女演员、第18届北京大学生电影节最佳女主角和第9届华鼎奖中国电影最佳女主角。2009年起跻身国际影坛。2010年主演《观音山》获得第23届东京国际电影节最佳女演员，同时该片也获得 ... >>>
+      </pre>
+      </div>
+      <div class="image">
+        <ul id="container">
+          <li class="img"><img src="/static/img/mx4.jpg"/></li>
+          <li class="img"><img src="/static/img/mx3.jpg"/></li>
+          <li class="img"><img src="/static/img/mx2.jpg"/></li>
+          <li class="img"><img src="/static/img/mx1.jpg"/></li>
+        </ul>
+      </div>
+    </div>
   </div>
   #end
   #block("back_script")
   <script type="text/javascript">
     $(function(){
        // shareYmx();
+       $("#container").masonry({itemSelector:".img"});
     });
   </script>
   #end

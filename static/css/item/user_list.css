@@ -27,6 +27,7 @@
       div.send-user > p.time{
         font-size: 12px;
       }
+      div.send-user > p.time:before{padding-right:3px;}
       div.show-list{
         width:100%;
         padding:2px;
