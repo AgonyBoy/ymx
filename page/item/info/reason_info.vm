@@ -13,7 +13,7 @@ ss
   #block("back_script")
   <script type="text/javascript">
     $(function(){
-       shareYmx();
+       // shareYmx();
     });
   </script>
   #end
