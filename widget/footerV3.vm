@@ -4,15 +4,15 @@
     <span class="mui-tab-label">首页</span>
   </a>
   <a class="mui-tab-item" open-type="common" href="http://www.baidu.com/">
-    <span class="mui-icon ymx zhibo"></span>
+    <span class="mui-icon ymx zhiboV2"></span>
     <span class="mui-tab-label">直播</span>
   </a>
   <a class="mui-tab-item" open-type="common" href="http://www.baidu.com/">
     <span class="ymx add1" id="sendMenu"></span>
   </a>
   <a class="mui-tab-item" open-type="common" href="http://www.baidu.com/">
-    <span class="mui-icon ymx faxian"></span>
-    <span class="mui-tab-label">发现</span>
+    <span class="mui-icon ymx message"></span>
+    <span class="mui-tab-label">消息</span>
   </a>
   <a class="mui-tab-item" open-type="common" href="http://www.baidu.com/">
     <span class="mui-icon ymx wd"></span>

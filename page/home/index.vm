@@ -18,7 +18,7 @@
 
   <!--底部菜单-->
   ##block("footer")#widget("/widget/footer.vm")#end
-  #block("footer")#widget("/widget/footerV2.vm")#end
+  #block("footer")#widget("/widget/footerV3.vm")#end
 
   <!--当前页面js-->
   #block("back_script")
