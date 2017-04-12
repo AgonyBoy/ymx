@@ -125,4 +125,18 @@
         });
     $("body").append($popup);
   }
+
+  /**
+   * 设置选中菜单
+   */
+  window.setActive = function(index){
+    $("nav").each(function(i,item){
+        if($(item).find("a.mui-tab-item").length==5){
+          var $menu =$(item).find("a.mui-tab-item").eq(index);
+          $menu.addClass("mui-active");
+          $menu.siblings().removeClass("mui-active");
+        }
+    });
+
+  }
 })(jQuery);

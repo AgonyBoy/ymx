@@ -41,6 +41,7 @@
     var $count =10;
 
     $(function(){
+      setActive(3);
         /**
          * 添加滚动条事件加载数据
          */

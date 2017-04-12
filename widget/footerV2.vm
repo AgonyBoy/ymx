@@ -1,5 +1,5 @@
 <nav class="mui-bar mui-bar-tab">
-  <a class="mui-tab-item mui-active" href="#">
+  <a class="mui-tab-item" href="#">
     <span class="mui-icon ymx homeb"></span>
     <span class="mui-tab-label">首页</span>
   </a>
