@@ -1,0 +1,39 @@
+ div.mui-content{
+        background:#FFF;
+      }
+      div.show-content{
+        width:100%;
+        float:left;
+      }
+
+      div.show-text{
+        padding:10px;
+        float:left;
+        width:100%;
+      }
+      pre{
+        width:100%;
+        float:left;
+        font-size:15px !important;
+        border-radius:3px;
+        color:#464646;
+        padding:10px 5px;
+        margin:0;
+        white-space:pre-wrap;
+        border:1px dashed #dfdfdf;
+      }
+      div.image{
+        width:100%;
+        padding:10px 5px;
+        float:left;
+      }
+      li.img{
+        width:50%;
+        float:left;
+        padding:5px;
+      }
+      li.img > img{
+        width:100%;
+        float:left;
+      }
+      div.send-user{border-bottom:3px solid #F6F6F6 !important;}
