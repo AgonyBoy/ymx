@@ -1,0 +1,230 @@
+#extends("/page/layout/default.vm")
+  #block("head_other")
+  #require("/components/uploader/webuploader.js")
+  #require("/components/cropper/cropper.js")
+  #require("/static/js/my-upload-plug.js")
+  #require("/components/cropper/cropper.css")
+  #require("/static/css/item/item_edit.css")
+  <style>
+    div.crop-area{
+      position:fixed;
+      width:100%;
+      height:100%;
+      background:#FFF;
+      top:0;
+      left:0;
+      display:none;
+      z-index:999;
+      padding-top:45px;
+      padding-bottom:45px;
+    }
+    div.crop-area>span{
+      width:100%;
+      height:45px;
+      float:left;
+      display:block;
+      margin-top:-45px;
+      line-height:45px;
+      text-align:center;
+      font-size:15px;
+    }
+    div.crop-area>span:before{
+      content:"\e612";
+      padding-right:5px;
+      font-family:"ymx";
+      font-size:20px !important;
+    }
+    div.crop-area > div.crop-show{
+      position:relative;
+      width:100%;
+      text-align:center;
+      height:100%;
+      float:left;
+      background:#000;
+    }
+    div.crop-btn{
+      width:100%;
+      height:45px;
+      float:left;
+    }
+    div.crop-btn > button{
+      width:50%;
+      height:45px;
+      border:0;
+      border-radius:0;
+      float:left;
+    }
+    .red{background:#DA251D;}
+    .gray{background:#808080;}
+    #showCropper{margin:auto;margin-top:100px;}
+  </style>
+  #end
+  #block("content")
+  <div class="crop-area" id="cropArea">
+    <span>图片裁剪</span>
+    <div class="crop-show">
+      <div id="showCropper"></div>
+    </div>
+    <div class="crop-btn">
+      <button class="red" id="confrim">确认</button>
+      <button class="gray" id="cancel">取消</button>
+    </div>
+  </div>
+  <div class="mui-content">
+
+    <!--搜索明星输入框-->
+    <div class="search">
+      <span class="search-input">
+        <input type="text" id="search" placeholder="你想约谁？输入关键字查找选择" status="1"/>
+        <div class="search-info" id="selectInfo" status="0">
+          <div class="select-list">
+            <ul id="searchList"><li><p class="null-data"></p></li></ul>
+          </div>
+        </div>
+      </span>
+      <p><a href="#" open-type="common" id="unsearch">找不到你想约的人？点这里</a></p>
+    </div>
+
+    <!--图片拼接和裁剪区-->
+    <div class="edit-area">
+      <div class="cut-area">
+        <div class="top-img">
+          <label class="show-img" id="topImg"></label>
+        </div>
+        <div class="left-img">
+          <label class="show-img" id="leftImg"></label>
+        </div>
+        <div class="right-img">
+          <label class="show-img" id="rightImg"></label>
+        </div>
+      </div>
+    </div>
+    <!--邀约详情信息填写-->
+    <div class="message-info">
+      <div class="item-info">
+        <div class="liyou">
+          <div class="bianx">
+            <textarea placeholder="请填写你发起邀约的理由" maxlength='1000' id="reason"></textarea>
+
+            <!-- 如果不需要发布图片，可注释掉"div.add-img"-->
+            <div class="add-img">
+              <ul id="listImg">
+                <!-- 预览图列表
+                <li class="show-img"><img src="/static/img/test1.jpg"/></li>
+                -->
+              </ul>
+              <label id="addImg" class="ymx img-icon"></label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="select-jigou">
+          <span>选择服务机构</span>
+          <div><label class="mui-radio mui-left"><input type="radio" id="101" name="radio" checked="checked"/><p>风客演艺服务团队</p></label></div>
+          <div><label class="mui-radio mui-left"><input type="radio" id="102" name="radio"/><p>其他服务团队</p></label></div>
+        </div>
+      </div>
+    </div>
+    <!--预览按钮-->
+    <div class="release-btn">
+      <button class="blue" id="preview">预览发布</button>
+    </div>
+  </div>
+  #end
+  #block("back_script")
+  <script type="text/javascript">
+
+    var _width =0;   //裁剪区域宽度
+    var _height=0;   //裁剪区域高度
+    var _croper=null;//裁剪对象
+    var _baseImg =null;//base64图片数据
+    var $control = null;//当前控制容器
+
+  /**
+   * 初始化设置
+   */
+  $(function(){
+           
+      var upload_a =_uploader({auto:false,button:"#addImg",multiple:true});
+      var upload_b =_uploader({auto:false,button:"#topImg",multiple:false});
+      var upload_c =_uploader({auto:false,button:"#leftImg",multiple:false});
+      var upload_d =_uploader({auto:false,button:"#rightImg",multiple:false});
+      var uploadSet =[upload_b,upload_c,upload_d];
+      
+      /**
+       * 设置裁剪区域容器宽高
+       */
+      $("label.show-img").click(function(){
+        $control = $(this);
+        _width = $(this).outerWidth();
+        _height = $(this).outerHeight();
+      });
+
+      /**
+       * 响应确认裁剪按钮
+       */
+      $("#confrim").click(function(){
+        if($control!=null && _baseImg !=null){
+          var $img = $("<img src='"+ _baseImg +"'/>");  //生成裁剪图片元素
+          $control.find("img").remove();                //删除历史图片
+          $control.append($img);                        //添加显示裁剪图片
+          $control.css("border","0");
+          $("#cropArea").fadeOut(100);                  //关闭裁剪窗口
+        }
+      });
+
+      /**
+       * 响应取消裁剪按钮
+       */
+      $("#cancel").click(function(){
+        $("#cropArea").fadeOut(100);
+      });
+
+
+      $.each(uploadSet,function(index,item){
+
+          //图片文件加入队列之前
+          item.on("beforeFileQueued",function(){
+            $("#showCropper").css({width:_width+"px",height:_height+"px"});
+            $("#showCropper").empty();
+            $("#cropArea").css("display","block");
+          });
+
+          //图片文件加入队列后
+          item.on("fileQueued",function(file){
+              //生成缩略图
+              item.makeThumb( file, function( error, ret ) {
+                  if ( error ) {
+                    throw new Error("生成缩略图出错");
+                  } else {
+
+                      //执行缩略图显示 ret-图片路径
+                      $("#showCropper").append("<img src='"+ret+"'/>");
+
+                      /*裁剪视图初始化配置*/
+                      _croper = $("#showCropper").find("img").cropper({
+                        viewMode:3,
+                        dragMode:'move',
+                        guides:true,              //裁剪网格显示
+                        center:true,              //裁剪中心十字
+                        autoCropArea:1,
+                        cropBoxMovable:false,     //是否可拖动裁剪框
+                        cropBoxResizable:false,   //是否可调整裁剪框大小
+                        aspectRatio:_width/_height,
+                        crop:function(e){
+                          _baseImg = _croper.cropper('getCroppedCanvas', {width: e.width,height: e.height}).toDataURL();
+                        }
+                      });
+
+                  }
+              });
+          });
+      });
+
+
+
+  });
+  </script>
+  #end
+#end
