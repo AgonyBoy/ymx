@@ -126,6 +126,7 @@ div.ymx-list{
     }
     div.other-info > span.user-photo > img{
       width:100%;
+      min-height:100%;
       float:left;
     }
     p.item-title{

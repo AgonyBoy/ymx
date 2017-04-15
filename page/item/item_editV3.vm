@@ -114,7 +114,8 @@
         console.log(upload_a.getFiles()+"");
     });
 
-    upload_b.on("beforeFileQueued",function(file){upload_b.reset();});//文件加入队列前重置队列
+    //文件加入队列前重置队列，始终保留一张图片在队列里
+    upload_b.on("beforeFileQueued",function(file){upload_b.reset();});
     //当文件被加入队列以后触发
     upload_b.on("fileQueued",function(file){
         //生成缩略图
@@ -122,13 +123,16 @@
           if(error){
             throw new Error("不支持缩略图");
           }else{
-            $("#topImg").css("border","0");
-            $("#topImg").find("img,div.cropper-container").remove();
-            var $img =$("<img src='"+ret+"'/>");
-            $("#topImg").append($img);
-            var _width =$("#topImg").outerWidth();
-            var _height=$("#topImg").outerHeight();
+            $("#topImg").css("border","0");                           //当图片载入时修改显示区边框样式
+            $("#topImg").find("img,div.cropper-container").remove();  //当修改图片时，删除之前的裁剪区对象
 
+            var $img =$("<img src='"+ret+"'/>");      //创建显示缩略图标签
+            $("#topImg").append($img);                //将缩略图显示到页面上
+            
+            var _width =$("#topImg").outerWidth();    //获取裁剪区域宽度
+            var _height=$("#topImg").outerHeight();   //获取裁剪区域高度
+
+             /*裁剪视图初始化配置*/
              $("#topImg").find("img").cropper({
               viewMode:3,
               dragMode:'move',
