@@ -138,7 +138,6 @@
     var _width =0;   //裁剪区域宽度
     var _height=0;   //裁剪区域高度
     var _croper=null;//裁剪对象
-    var _baseImg =null;//base64图片数据
     var $control = null;//当前控制容器
 
   /**
@@ -165,7 +164,8 @@
        * 响应确认裁剪按钮
        */
       $("#confrim").click(function(){
-        if($control!=null && _baseImg !=null){
+        if($control!=null && _croper !=null){
+          var _baseImg = _croper.cropper('getCroppedCanvas', {width: _width,height: _height}).toDataURL();
           var $img = $("<img src='"+ _baseImg +"'/>");  //生成裁剪图片元素
           $control.find("img").remove();                //删除历史图片
           $control.append($img);                        //添加显示裁剪图片
@@ -213,7 +213,8 @@
                         cropBoxResizable:false,   //是否可调整裁剪框大小
                         aspectRatio:_width/_height,
                         crop:function(e){
-                          _baseImg = _croper.cropper('getCroppedCanvas', {width: e.width,height: e.height}).toDataURL();
+                          _width = e.width;
+                          _height= e.height;
                         }
                       });
 

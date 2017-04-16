@@ -48,7 +48,28 @@
         width:100%;
         float:left;
       }
-      
+      div.other-info{
+        position:relative;
+      }
+      span.show-img > button.del-btn{
+        position:absolute;
+        padding:0;
+        width:20px;
+        height:20px;
+        z-index: 99;
+        border-radius: 0;
+        top:2px;
+        right:2px;
+        background:#dfdfdf;
+        border:1px solid #DA251D;
+      }
+      span.show-img > button.del-btn:active{background:gray;}
+      span.show-img > button.del-btn:before{
+        content:"\e664";
+        color:#da251d;
+        font-size: 22px;
+        line-height: 1em;
+      }
     </style>
   #end
 
@@ -82,7 +103,7 @@
     <%_.each(list,function(item){%>
           <li class="star-item">
             <div class="item-info">
-              <span class="show-img"><a open-type="common" href="<%=item.infoUrl%>"><img src="<%=item.thumbImg%>"/></a><%if(item.status==1){%><span class="tag red">进行中</span><%}else{%><span class="tag hui">已结束</span><%}%></span>
+              <span class="show-img"><button class="del-btn ymx"></button><a open-type="common" href="<%=item.infoUrl%>"><img src="<%=item.thumbImg%>"/></a><%if(item.status==1){%><span class="tag red">进行中</span><%}else{%><span class="tag hui">已结束</span><%}%></span>
               <div class="other-info">
                 <span class="user-photo"><img src="<%=item.userPhoto%>"/></span>
                 <p class="item-title">约.<%=item.starName%></p>
