@@ -133,7 +133,7 @@
             var _height=$("#topImg").outerHeight();   //获取裁剪区域高度
 
              /*裁剪视图初始化配置*/
-             $("#topImg").find("img").cropper({
+             var _canvas = $("#topImg").find("img").cropper({
               viewMode:3,
               dragMode:'move',
               guides:true,              //裁剪网格显示
@@ -152,6 +152,7 @@
                 console.log(e.scaleY);
               }
             });
+            console.log( "canvas:"+_canvas );
           }
         });
         console.log(upload_b.getFiles()+"");
